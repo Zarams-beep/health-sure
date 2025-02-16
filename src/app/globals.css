@@ -1,21 +1,577 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  @apply bg-white-offWhite
+}
+/* Global */
+*,
+*::after,
+*::before {
+  @apply m-0 p-0 box-border scroll-smooth;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+.container {
+  @apply w-full h-full;
+}
+/* Global ends */
+
+/* header styling starts */
+.header-section{
+  font-family: 'Manrope', sans-serif;
+  @apply flex w-full bg-milky text-brown py-3 px-5 base:px-7 font-semibold sticky top-0 z-[1000];
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.header-section .header-section-div{
+  @apply flex items-center justify-between w-full;
+}
+.header-section .header-section-div .header-part-1{
+  @apply flex items-center gap-2;
+  font-family: 'Roboto', sans-serif;
+}
+.header-section .header-part-1 .logo-icon {
+  @apply text-[45px] 1sm:text-[60px] text-brown;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.header-section .header-part-1 div h2{
+  @apply text-[16px] base:text-[28px] leading-[22px] text-white-offWhite
+}
+.header-section .header-part-1 div > h2:last-of-type{
+  @apply text-brown
+}
+.header-section .header-part-2 ul{
+  @apply flex items-center gap-10 relative
+}
+.header-section .header-part-2 ul li{
+  @apply hover:text-brown-gold
+}
+.header-section .header-part-2 ul .active{
+  @apply text-brown-gold
+}
+.header-section .header-part-2 .dropdown-container, .header-section .menu-part-1 .dropdown-container{
+  @apply flex items-center gap-[.5px]
+}
+.header-section .header-part-2 .dropdown-container .dropdown-container-2, .header-section .menu-part-1 .dropdown-container .dropdown-container-2{
+  @apply flex flex-col hover:cursor-pointer
+}
+.header-section .menu-part-1 .dropdown-container .dropdown-section{
+  @apply w-[160px] gap-5
+}
+.header-section .header-part-2 .dropdown-container .dropdown-section, .header-section .menu-part-1 .dropdown-container .dropdown-section{
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) ;
+  @apply absolute left-0 top-[30px] p-2 bg-brown rounded-[2px] z-[10px] flex flex-col gap-3 text-milky 
+}
+.hbrowntion .menu-part-1 .dropdown-container .dropdown-section{
+  @apply top-[130px]
+}
+.header-section .header-part-2 .dropdown-container .dropdown-section p, .header-section .menu-part-1 .dropdown-container .dropdown-section p{
+  @apply hover:text-[#a543a5]
+}
+.header-section .header-part-3{
+  @apply flex items-center gap-5
+}
+.header-section .header-part-3 button{
+  @apply w-[100px] p-2 rounded-[4px]
+}
+.header-section .header-part-3 .login-btn,.header-section .mini-header-part-3 .login-btn{
+  @apply bg-brown text-white-offWhite font-bold
+}
+.header-section .header-part-3 .signup-btn,.header-section .mini-header-part-3 .signup-btn{
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) ;
+}
+.profile-icon{
+  @apply hover:cursor-pointer
+}
+/* header media starts */
+/* .menu-container,.header-auth-btn-container{
+  @apply relative bg-[red]
+} */
+.header-section .menu-part-1{
+  @apply absolute  top-[35px] bg-white-offWhite rounded-[2px] z-[10px]  text-[#353535] right-[5rem] p-4 w-[120px];
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) ;
+}
+.header-auth-btn-container .mini-header-part-3{
+  @apply absolute flex flex-col left-0 gap-5 w-[120px] p-3 bg-white-offWhite rounded-[2px] z-[10px];
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) ;
+}
+.header-section .mini-header-part-3 button{
+  @apply w-full p-2 rounded-[4px] 
+}
+.header-auth-btn-container .mini-header-part-3 .signup-btn{
+  @apply bg-brown-gold text-white-offWhite
+}
+.header-section .menu-part-1 ul{
+  @apply flex flex-col gap-5
+}
+.header-section .menu-part-1 ul li{
+  @apply hover:text-brown-gold
+}
+.header-section .menu-part-1 ul .active{
+  @apply text-brown-gold
+}
+.media-header-part-2{
+  @apply flex items-center gap-[50px] relative
+}
+.closed{
+  @apply opacity-0
+}
+.media-icon{
+  @apply hover:cursor-pointer
+}
+.media-header-part-2 .header-part-3{
+  @apply absolute
+}
+/* header media ends */
+
+/* header styling ends */
+
+/* home page - hero starts */
+.hero-section{
+  @apply bg-brown overflow-x-hidden text-white-offWhite w-full h-full py-9 px-7 base:px-12 flex flex-col gap-10;
+  font-family: 'Manrope', sans-serif;
+
+}
+.hero-section .hero-section-1{
+  @apply flex items-start lg:items-center justify-between lg:gap-0 gap-8 lg:flex-row flex-col w-full 2xl:gap-8
+}
+.hero-section .hero-content{
+  @apply w-full lg:w-[600px] 2xl:w-full flex flex-col gap-8
+}
+.hero-section .hero-content h1{
+  @apply text-[35px] xs:text-[50px] w-full 2xl:w-full base:w-[400px] font-bold leading-[56px] ;
+}
+.hero-section .hero-content p{
+  @apply text-[16px] text-justify;
+}
+.hero-section .hero-section-1 .hero-image{
+  @apply w-full lg:w-[600px] 2xl:w-full;
+}
+.hero-section .hero-image img{
+  @apply rounded-[9px]
+}
+.hero-content .cta-button{
+  @apply w-[200px] p-2 rounded-[4px] bg-white-offWhite text-brown font-bold;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) ;
+}
+.hero-section .hero-card-container{
+  @apply grid grid-cols-1 1sm:grid-cols-2 lg:flex items-center justify-between gap-4
+}
+.hero-section .hero-card-container .hero-card{
+  @apply bg-white-offWhite text-brown flex flex-col gap-2 items-center px-4 py-5 h-auto 1sm:h-[320px] rounded-[6px] hover:cursor-pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) ;
+  transition: transform 0.3s ease;
+}
+.hero-section .hero-card-container .hero-card h3{
+  @apply font-bold text-[16px] xs:text-[20px] text-center;
+  font-family: 'Roboto', sans-serif;
+}
+.hero-section .hero-card-container .hero-card p{
+  @apply text-justify tracking-[.2px] text-[14px] xs:text-[16px]
+}
+.hero-card:hover {
+  transform: translateY(-10px);
+}
+.hero-card .hero-card-icon{
+  @apply text-[40px] flex-shrink-0;
+}
+/* home page - hero ends */
+
+/* home page - features styling starts */
+.features-container {
+  @apply flex flex-col items-center px-7 base:px-12 mt-[6rem];
+}
+.features-container header {
+  @apply flex flex-col items-center text-center mb-10;
+}
+.features-container header h2 {
+  @apply text-[35px] xs:text-[50px] font-bold leading-[56px] text-brown;
+  font-family: 'Roboto', sans-serif;
+}
+.features-container header p {
+  @apply w-full md:w-[600px] text-[18px] text-brown-light leading-relaxed;
+  font-family: 'Manrope', sans-serif;
+}
+.features-section {
+  @apply flex flex-wrap justify-center gap-[1.5rem];
+}
+.features-part {
+  @apply relative w-full max-w-[500px] overflow-hidden rounded-[9px];
+}
+.image-container {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  @apply relative w-full h-[400px] overflow-hidden rounded-[9px];
+}
+.image-container img {
+  @apply h-full object-cover ;
+}
+.text-overlay-container {
+  @apply absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center gap-6 text-white-offWhite text-center bg-black bg-opacity-50;
+}
+.feature-title {
+  @apply text-2xl font-bold;
+}
+.feature-description {
+  @apply text-lg mt-[5rem];
+}
+.description {
+  @apply absolute inset-0 flex items-center justify-center text-white-offWhite text-lg text-center rounded-lg hover:cursor-pointer;
+}
+/* home page - features styling ends */
+
+/* home page - FAQ styling starts */
+.faq-section {
+  @apply py-16 bg-milky mt-[6rem];
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.faq-container {
+  @apply max-w-4xl mx-auto px-6;
 }
+
+.faq-title {
+  @apply text-[23px] xs:text-[28px] font-bold text-center text-brown mb-8;
+}
+
+.faq-item {
+  @apply bg-white p-4 mb-4 rounded-lg shadow-md cursor-pointer;
+}
+
+.faq-question {
+  @apply flex justify-between items-center font-semibold text-[15px] xs:text-[20px];
+}
+
+.faq-answer {
+  @apply mt-2 text-brown-light xs:text-[16px] text-[14px];
+}
+/* home page - FAQ styling ends */
+
+/* blog styling starts */
+
+.blog-section {
+  @apply flex flex-col items-center px-7 base:px-12 mt-[6rem];
+}
+.blog-section header {
+  @apply flex flex-col items-center text-center mb-10;
+}
+.blog-title {
+  @apply text-[35px] xs:text-[50px] font-bold leading-[56px] text-brown text-center;
+  font-family: 'Roboto', sans-serif;
+}
+.blog-section header p {
+  @apply w-full md:w-[600px] text-[18px] text-brown-light leading-relaxed;
+  font-family: 'Manrope', sans-serif;
+}
+.blog-list {
+  @apply flex flex-col md:flex-row gap-6;
+}
+
+.blog-card {
+  @apply flex flex-col gap-5 bg-brown w-full rounded-lg shadow-md pb-3;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.blog-img {
+  @apply rounded-t-md w-full h-[300px] sm:h-[450px];
+}
+.blog-content{
+  @apply text-center text-white-offWhite flex flex-col gap-3;
+  font-family: 'Roboto', sans-serif;
+}
+.blog-content h3 {
+  @apply text-[22px] font-bold mt-2;
+}
+.blog-content p{
+  @apply text-[14px]
+}
+.blog-content .read-more-container {
+  @apply my-2  flex items-center justify-center;
+}
+.blog-content .read-more-container a{
+  @apply text-brown bg-white-offWhite p-3 font-semibold xs:text-[16px] text-[14px] w-[100px] xs:w-[180px] rounded-[10px]
+}
+/* blog styling ends */
+
+/* talk to a doctor styling starts */
+.talk-to-doctor-section{
+  @apply flex items-center md:flex-row flex-col xs:py-0 py-4
+}
+.talk-to-doctor-section-img{
+  @apply w-full h-[500px] md:h-[700px] sm:block hidden
+}
+.talk-to-doctor-section-img img{
+  @apply w-full h-full object-cover rounded-none
+}
+.talk-to-doctor-content{
+  @apply h-[700px] p-5 text-brown flex flex-col gap-8
+}
+.talk-to-doctor-content h2{
+  @apply font-bold text-[25px] xs:text-[40px] text-center;
+  font-family: 'Roboto', sans-serif;
+}
+.talk-to-doctor-content p{
+  @apply text-[14px] xs:text-[17px] text-justify leading-relaxed;
+  font-family: 'Manrope', sans-serif;
+}
+.talk-to-doctor-content .list-items{
+  @apply flex flex-col gap-4
+}
+.talk-to-doctor-content .list-items h3{
+  @apply text-[17px] xs:text-[20px];
+  font-family: 'Roboto', sans-serif;
+}
+.talk-to-doctor-content .list-items ul{
+  @apply flex flex-col gap-5
+}
+.btn-talk-doctor-container {
+  @apply flex justify-center items-center
+}
+.btn-talk-doctor-container button{
+  @apply flex items-center gap-1 text-white-offWhite bg-brown p-3 font-semibold w-auto rounded-[10px]
+}
+/* talk to a doctor styling ends */
+
+/* footer styling starts */
+
+.landing-footer{
+  @apply bg-brown overflow-x-hidden text-white-offWhite w-full h-full py-9 px-7 base:px-12 flex flex-col gap-10;
+  font-family: 'Manrope', sans-serif;
+}
+.landing-footer .landing-footer-section{
+  @apply flex flex-col gap-10
+}
+.landing-footer .input-div-footer{
+  @apply flex flex-col gap-3 items-center justify-center
+}
+.landing-footer .input-div-footer p{
+  @apply text-[red]
+}
+.landing-footer .input-footer-section{
+  @apply w-full lg:w-[800px] bg-white-offWhite px-5 py-3 h-[54px] flex items-start justify-between border border-brown-light rounded-[10px] 1sm:text-[16px] text-[14px];
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.landing-footer .input-footer-section input{
+  @apply border-none outline-none bg-transparent w-full text-[black]
+}
+.landing-footer .input-footer-section button{
+  @apply text-brown hover:text-brown-gold bg-transparent font-semibold
+}
+.footer-list{
+  @apply md:flex items-center justify-between grid grid-cols-1 1sm:grid-cols-2 md:gap-0 gap-7 my-4 mx-10 ;
+}
+.footer-list .sub-list{
+  font-family: 'Manrope', sans-serif;
+  @apply flex flex-col gap-1
+}
+.footer-list .sub-list h3{
+  @apply font-bold text-[16px] xs:text-[20px];
+  font-family: 'Roboto', sans-serif;
+}
+.footer-list .sub-list ul{
+  @apply flex flex-col gap-1 
+}
+.landing-footer .social-icons{
+  @apply flex items-center justify-center mt-3 flex-col gap-7
+}
+.landing-footer .social-icons div{
+  @apply w-full md:w-[500px] flex items-center justify-between
+}
+.landing-footer .social-icons .footer-icon{
+  @apply text-[20px] xs:text-[30px];
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.landing-footer .copyright p{
+  @apply tracking-wider 1sm:text-[16px] text-[14px] text-center mx-12
+}
+/* footer styling ends */
+
+/* about us styling starts */
+.about-page-container{
+  @apply overflow-x-hidden text-white-offWhite w-full h-full flex flex-col gap-10;
+  font-family: 'Manrope', sans-serif;
+}
+.about-page-container .about-header{
+  @apply bg-lightGrey flex items-center justify-between px-7 base:px-12 py-10
+}
+.about-header .about-first-header{
+  @apply flex flex-col text-blue;
+}
+.about-header .about-first-header h1{
+  @apply text-[40px] lg:text-[50px] font-bold;
+  font-family: 'Roboto', sans-serif;
+}
+.about-header .about-first-header p{
+  @apply text-[18px];
+  font-family: 'Manrope', sans-serif;
+}
+.about-header .about-header-1-img{
+  @apply bg-white-offWhite p-[10px] w-full md:w-[350px] border-[15px] border-solid border-r-brown border-b-brown border-t-[#615245] 
+  border-l-[#615245] relative;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.about-header .about-header-1-img img{
+  @apply w-full
+}
+.pin-img{
+  @apply absolute text-[50px] top-[-1.4rem] text-brown-gold left-[45%];
+}
+.about-intro{
+  @apply flex flex-col items-center text-brown-light text-center px-7 base:px-12 py-4 gap-7
+}
+.about-intro div{
+  @apply w-full md:w-[800px]
+}
+.about-intro h2{
+  @apply text-[30px] md:text-[40px] font-bold;
+  font-family: 'Roboto', sans-serif;
+}
+.about-intro p{
+  @apply leading-10 text-[14px] md:text-[16px]
+}
+.about-mission{
+  @apply flex items-center md:flex-row flex-col gap-8 lg:gap-[5rem] px-7 base:px-12  py-4 md:py-[4rem];
+}
+.about-mission .about-mission-2{
+  @apply flex flex-col gap-3 text-brown-light w-full md:w-[700px]
+}
+.about-mission .about-mission-2 h2{
+  @apply text-[30px] md:text-[40px] font-bold;
+  font-family: 'Roboto', sans-serif;
+}
+.about-mission .about-mission-2 p{
+  @apply leading-10 text-[14px] md:text-[16px] text-justify
+}
+.about-mission .img-container{
+  @apply h-[400px] w-[500px] 
+}
+.about-mission img{
+  @apply h-full w-full rounded-[10px];
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  object-position: top;
+}
+.about-how-we-work{
+  @apply px-7 base:px-12  py-5;
+}
+.about-how-we-work h2, .about-team h2{
+  @apply text-brown-light text-[30px] md:text-[40px] font-bold text-center;
+  font-family: 'Roboto', sans-serif;
+}
+.about-how-we-work p,.about-team p{
+  @apply text-brown-light w-full text-[15px] lg:text-[18px] text-center mb-10;
+  font-family: 'Roboto', sans-serif;
+}
+.about-team{
+  @apply px-7 base:px-12  py-5 text-brown-gold;
+}
+.about-team header{
+  @apply flex flex-col items-center justify-center
+}
+.about-team p{
+  @apply  w-full md:w-[800px]
+}
+.about-team .team-member{
+  @apply flex items-center gap-[3rem]
+}
+.for-team-img{
+  @apply rounded-lg mb-4 w-full h-[250px] object-cover
+}
+.team-bio-data{
+  @apply flex flex-col items-center justify-center
+}
+.team-bio-data p{
+  @apply mb-5 px-9 w-full
+}
+.team-carousel .swiper-button-next,
+.team-carousel .swiper-button-prev {
+  @apply text-brown;
+}
+.team-carousel .swiper-pagination-bullet {
+  @apply bg-milky;
+  opacity: 0.7;
+}
+
+.team-carousel .swiper-pagination-bullet-active {
+  @apply bg-brown;
+  opacity: 1;
+}
+/* about us styling ends */
+
+/* contact us styling starts */
+.contactUs-form-section {
+  @apply bg-cover bg-center px-7 base:px-12 py-10;
+  background-image: url('/hero-img-2.jpg');
+}
+.contactUs-form-body{
+  @apply flex flex-col gap-9 bg-[#372d2593] text-milky p-8 rounded-[4rem];
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.contactUs-form-body .firstHeader{
+  @apply text-center
+}
+.contactUs-form-body .firstHeader h2{
+  @apply text-[30px] md:text-[40px] font-bold;
+  font-family: 'Roboto', sans-serif;
+}
+.contactUs-form-body .firstHeader h6,.contactUs-body .contactUs-part-one p{
+  @apply text-[15px] tracking-wide;
+  font-family: 'Manrope', sans-serif;
+}
+.contactUs-form-body .contactUs-body{
+  @apply flex items-start gap-10;
+}
+.contactUs-body .contactUs-part-one{
+  @apply flex flex-col w-[900px] gap-7
+}
+.contactUs-body .contactUs-part-one h3{
+  @apply font-bold text-[20px];
+  font-family: 'Roboto', sans-serif;
+}
+.contactUs-body .contactUs-part-one p{
+  @apply w-[400px]
+}
+.contactUs-body .contactUs-part-one .contactUs-socials{
+  @apply flex items-center justify-between w-[150px] text-[20px]
+}
+.contactUs-body .contactUs-part-one .contactUs-details{
+  @apply flex flex-col gap-4;
+}
+.contactUs-body .contactUs-part-one .contactUs-details .contactUs-details-small{
+  @apply flex items-center gap-2 text-[20px]
+}
+.contactUs-body .contactUs-part-two{
+  @apply w-full;
+}
+.contactUs-body .contactUs-part-two .contactUs-form{
+  @apply flex flex-col gap-8;
+}
+.contactUs-input,.contactUs-message{
+  @apply flex flex-col gap-2
+}
+.contactUs-input input, .contactUs-message textarea{
+  @apply w-full p-2 text-brown
+}
+.contactUs-input label,.contactUs-message label,.contactUs-select label{
+  @apply text-[14px] font-bold
+}
+.contactUs-subject{
+  @apply flex flex-col gap-1
+}
+.contactUs-subject label{
+  @apply text-[17px] font-normal
+}
+.contactUs-submit-container{
+  @apply flex items-center justify-center
+}
+.contactUs-body .contact-btn{
+@apply bg-brown p-4 w-[200px] flex items-center justify-center rounded-[3rem] font-bold text-[16px]
+}
+.error-red-border,.contactUs-part-two .error-paragraph{
+  @apply text-[red] border border-[red]
+}
+/* contact us styling ends */
