@@ -89,8 +89,16 @@ export default function HeaderSection() {
 
           {/* header part 3 */}
           <div className="header-part-3">
-            <button className="login-btn">Log In</button>
-            <button className="signup-btn">Sign Up</button>
+            <button className="login-btn" >
+            <Link href="/auth/log-in">
+              Log In
+              </Link>
+              </button>
+            <button className="signup-btn">
+            <Link href="/auth/sign-up">
+              Sign Up
+              </Link>
+              </button>
           </div>
         </div>
       </header>

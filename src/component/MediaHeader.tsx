@@ -129,11 +129,22 @@ export default function MediaHeaderSection() {
             <CgProfile size={40} onClick={handleOpen2} className="profile-icon"/>
 
             {isOpen2 && (
-              <div className="mini-header-part-3">
-                <button className="login-btn">Log In</button>
-                <button className="signup-btn">Sign Up</button>
-              </div>
-            )}
+  <div className="mini-header-part-3">
+    <button
+      className="login-btn"
+      onClick={() => window.location.href = "/auth/log-in"}
+    >
+      Log In
+    </button>
+    <button
+      className="signup-btn"
+      onClick={() => window.location.href = "/auth/sign-up"}
+    >
+      Sign Up
+    </button>
+  </div>
+)}
+
           </div>
         </div>
       </div>

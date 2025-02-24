@@ -1,9 +1,9 @@
-export default function LoginSection (){
+import Login from "@/component/LoginComponent";
+
+export default function LoginPage (){
     return(
         <>
-            <div className="">
-                
-            </div>
+            <Login/>
         </>
     )
 }

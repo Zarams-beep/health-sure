@@ -1,42 +1,53 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import { Provider } from "react-redux";
+import store from "@/store/store";
+import { useState, useEffect, ReactNode } from "react";
 import { useMediaQuery } from "react-responsive";
 import MediaHeaderSection from "@/component/MediaHeader";
 import HeaderSection from "@/component/Header";
 import useInvalidPaths from "./hooks/invalid-path";
-import { ReactNode } from "react";
+import { useSearchParams, usePathname } from "next/navigation";
+import MainLayout from "@/component/MainLayout";
+import React, { Suspense } from "react";
 
+// Define props type
 type MainWrapperProps = {
   children: ReactNode;
 };
 
-function useMounted() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  return mounted;
-}
-
 export default function MainWrapper({ children }: MainWrapperProps) {
-  const mounted = useMounted();
-  // Only use the media query on the client.
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const [full_name, setFullNames] = useState<string | undefined>(undefined);
   const isMobile = useMediaQuery({ maxWidth: 920 });
   const isInvalidPath = useInvalidPaths();
 
-  // Option 1: Render nothing until mounted
-  if (!mounted) {
-    return null;
-  }
+  useEffect(() => {
+    const name = searchParams.get("fullName");
+    setFullNames(name || undefined);
+  }, [searchParams]);
 
-  // Option 2: Or you can assume a default, e.g., non-mobile view until mounted.
-  // const isMobileOrDefault = mounted ? isMobile : false;
+  // Check if the current page is part of the dashboard
+  const isDashboard = pathname.startsWith("/dashboard");
+
+  // Use MainLayout if the user is logged in OR if it's a dashboard page
+  const useMainLayout = full_name !== undefined || isDashboard;
 
   return (
     <main className={isInvalidPath ? "mt-0" : ""}>
-      {isMobile ? <MediaHeaderSection /> : <HeaderSection />}
-      {children}
+      <Provider store={store}>
+        {useMainLayout ? (
+          <MainLayout>
+            <Suspense fallback={<p>Loading page...</p>}>{children}</Suspense>
+          </MainLayout>
+        ) : (
+          <>
+            {!isInvalidPath &&
+              (isMobile ? <MediaHeaderSection /> : <HeaderSection />)}
+            {children}
+          </>
+        )}
+      </Provider>
     </main>
   );
 }

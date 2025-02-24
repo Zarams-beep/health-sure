@@ -1,19 +1,19 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 
-export default function useInvalidPaths() {
-  const pathName = usePathname();
+export default function useIsInvalidPath() {
+  const pathname = usePathname();
 
   const invalidPaths = [
-    "/auth/login",
-    "/auth/register",
+    "/auth/log-in",
     "/auth/sign-up",
     "/auth/forgot-password",
     "/auth/verify",
   ];
 
-  const isInvalid = invalidPaths.some((path) => pathName.includes(path));
-
-  return isInvalid;
+  return useMemo(() => {
+    return invalidPaths.includes(pathname);
+  }, [pathname]);
 }

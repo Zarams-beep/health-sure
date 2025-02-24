@@ -514,13 +514,16 @@
 .contactUs-form-body .firstHeader{
   @apply text-center
 }
-.contactUs-form-body .firstHeader h2{
+.contactUs-form-body .firstHeader h2, .login-form-container .form-header .form-title{
   @apply text-[30px] md:text-[40px] font-bold;
   font-family: 'Roboto', sans-serif;
 }
-.contactUs-form-body .firstHeader h6,.contactUs-body .contactUs-part-one p{
+.contactUs-form-body .firstHeader h6,.contactUs-body .contactUs-part-one p, .login-form-container .form-header p{
   @apply text-[15px] tracking-wide;
   font-family: 'Manrope', sans-serif;
+}
+.login-form-container .form-header p{
+  @apply text-[17px]
 }
 .contactUs-form-body .contactUs-body{
   @apply flex items-start gap-10;
@@ -575,3 +578,209 @@
   @apply text-[red] border border-[red]
 }
 /* contact us styling ends */
+
+/* auth styling starts */
+/* login styling starts */
+.login-container{
+  @apply h-[calc(100vh-70px)] w-full overflow-hidden flex md:flex-row flex-col items-center justify-between;
+}
+.signup-container{
+  @apply h-[100vh]
+}
+.login-left, .login-form-container{
+  @apply w-full h-full
+}
+.login-image{
+  @apply w-full h-full
+}
+.login-form-container{
+  @apply bg-milky py-8 px-10 flex flex-col gap-6 text-brown
+}
+.login-form-container .form-header{
+  @apply flex flex-col gap-2 items-center
+}
+.login-form{
+  @apply flex flex-col gap-4
+}
+.login-form .input-group label{
+  @apply text-[17px]
+}
+.login-form .input-wrapper input{
+  @apply border-none bg-transparent 
+  w-full focus:outline-none outline-none
+}
+.login-form .input-wrapper{
+  @apply flex items-center border border-brown outline-brown-grey p-2 gap-2 text-brown placeholder:text-brown mt-3 rounded-md
+}
+.login-form .input-wrapper .input-second{
+  @apply flex items-center justify-between h-full w-full
+}
+.submit-button{
+  @apply w-full rounded-[20px] p-2 font-bold
+}
+.active-button{
+  @apply bg-brown text-white-offWhite
+}
+.disabled-button{
+  @apply border border-brown text-brown
+}
+.login-form .checkbox-group{
+  @apply flex items-center gap-1
+}
+.login-form .checkbox-group input{
+  @apply w-4 h-4 rounded border appearance-none
+}
+.forgot-password-link,.linking-auth{
+  @apply text-[#921d92cc] hover:text-[#4949c0ce]
+}
+.loading-spinner{
+  @apply flex items-center justify-center
+}
+/* login styling ends */
+
+/* sign up styling starts */
+.sign-up-section{
+  @apply mb-3 flex flex-col gap-4
+}
+/* sign up styling ends */
+/* auth styling ends */
+
+/* page not found container styling starts */
+.page-not-found-container{
+  @apply flex items-center justify-center  bg-cover bg-center px-7 base:px-12 py-10;
+  background-image: url('/hero-img-2.jpg');
+}
+.page-not-found-2{
+  @apply bg-white-offWhite rounded-[2rem] flex 
+   p-10 w-[500px] items-center justify-center
+}
+.page-not-found-container .page-not-found-2 section{
+  @apply flex flex-col gap-4 text-center text-brown text-[15px] xs:text-[17px]
+}
+.page-not-found-container .page-not-found-2 section h1{
+  @apply text-[20px] xs:text-[30px]  font-bold;
+}
+.page-not-found-container .btn-div{
+  @apply flex items-center justify-center
+}
+.page-not-found-container .page-not-found-2 button{
+  @apply bg-brown text-white-offWhite hover:bg-milky hover:text-brown font-bold text-[15px] xs:text-[17px] rounded-[4px] py-1 xs:py-3 w-full xs:w-[200px]
+}
+/* page notfound container styling ends */
+
+/* dashboard styling starts */
+
+/* nav bar styling starts */
+.dashboard-header{
+  font-family: 'Manrope', sans-serif;
+  @apply flex w-full bg-milky text-brown py-3 px-5 
+  base:px-7 font-semibold sticky top-0 z-[1000] h-auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.dashboard-header .dashboard-nav-bar{
+  @apply flex items-center justify-between gap-4 md:gap-8 w-full;
+}
+.dashboard-header .dashboard-nav-bar .search-container{
+  @apply flex items-center w-full px-3 text-[14px] md:text-[16px] text-brown py-2 border border-brown-grey rounded-[10px];
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.dashboard-header .dashboard-nav-bar .search-input{
+  @apply w-full h-full border-none outline-none bg-transparent placeholder:text-brown;
+}
+.dashboard-header .dashboard-nav-bar .search-icon{
+  @apply text-[18px] md:text-[28px]
+}
+.dashboard-header .dashboard-nav-bar .profile-section{
+  @apply w-[80px] md:w-[300px] flex items-center gap-5 text-brown;
+}
+.dashboard-header .dashboard-nav-bar .profile-small{
+  @apply flex flex-col text-[13px] h-[70px]
+}
+.dashboard-header .dashboard-nav-bar .profile-small .img-container{
+  @apply h-[40px] w-[40px] rounded-[100%]
+}
+.profile-small .img-container img{
+  @apply w-full h-full rounded-[100%] bg-cover bg-center
+}
+.dashboard-header .dashboard-nav-bar .profile-section .profile-small h4{
+  @apply font-[800px] mb-[-.4rem]
+}
+.dashboard-header .dashboard-nav-bar .profile-section .profile-small p{
+  @apply text-[12px];
+}
+.dashboard-header .dashboard-nav-bar .profile-section .icon-section{
+  @apply hidden md:flex items-center flex-row text-[18px] md:text-[25px] h-[70px] gap-1 md:gap-4 pl-0 md:pl-4 border-none md:border-l border-l-brown
+}
+/* nav bar styling ends */
+/* side bar styling starts */
+.dashboard-main-container{
+  @apply flex items-start
+}
+.dashboard-main-container-2{
+  @apply flex flex-col w-full
+}
+.sidebar.expanded {
+  @apply w-1/2 md:w-[25%] lg:w-[20%] xl:w-[15%] 2xl:w-[10%];
+}
+
+.sidebar.collapsed {
+  @apply w-[80px] items-center;
+}
+.sidebar h2{
+ @apply text-[16px] md:text-[20px] border-b border-b-white-offWhite flex items-center py-3 mb-5 gap-1
+}
+.sidebar h2 div{
+  @apply flex
+}
+.sidebar .side-menu-list{
+  @apply flex flex-col gap-10 text-[15px];
+}
+.sidebar ul li div{
+  @apply flex items-center gap-2 hover:cursor-pointer
+}
+.dropdown-icon{
+  @apply hover:cursor-pointer;
+}
+.sidebar .dropdown-menu{
+  @apply mt-2 flex flex-col gap-2 text-[13px]
+}
+.sidebar .media-side-bar-icons{
+  @apply flex flex-col mt-8 gap-5
+}
+/* side bar styling ends */
+
+.dashboard-main-page-container{
+  @apply bg-white-offWhite w-full px-5 py-3
+}
+
+/* card styling starts */
+.dashboard-card-main{
+  @apply flex items-center justify-between gap-3 w-full bg-[red]
+}
+.dashboard-card-section{
+  @apply w-full flex flex-col gap-3 p-4 rounded-[10px] h-[180px]
+}
+.dashboard-card-section-2{
+  @apply flex items-start gap-5 justify-between
+}
+.dashboard-card-section-2 h3{
+  @apply font-bold text-[20px]
+}
+.dashboard-card-main .icon-style{
+  @apply text-[40px]
+}
+.dashboard-card-main .icon-style-1{
+  @apply text-[red]
+}
+.dashboard-card-main .icon-style-2{
+  @apply text-blue-light
+}
+.dashboard-card-main .icon-style-3{
+  @apply text-[orange]
+}
+.dashboard-card-main .icon-style-4{
+  @apply text-[green]
+}
+
+/* card styling ends */
+/* dashboard styling ends */
