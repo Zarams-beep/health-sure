@@ -1,3 +1,4 @@
+import AnatomyDiagram from "@/component/DashboardAnatomy";
 import CardsSection from "@/component/DashboardCard";
 
 export default function DashboardLandingPage (){
@@ -5,6 +6,7 @@ export default function DashboardLandingPage (){
         <>
             <div className="dashboard-main-page-container">
                 <CardsSection/>
+                <AnatomyDiagram/>
             </div>
         </>
     )

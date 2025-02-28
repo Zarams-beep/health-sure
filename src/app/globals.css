@@ -750,12 +750,12 @@
 /* side bar styling ends */
 
 .dashboard-main-page-container{
-  @apply bg-white-offWhite w-full px-5 py-3
+  @apply bg-white-offWhite w-full px-5 py-3 flex flex-col
 }
 
 /* card styling starts */
-.dashboard-card-main{
-  @apply flex items-center justify-between gap-3 w-full bg-[red]
+.dashboard-card-main {
+  @apply grid grid-cols-1 smm:grid-cols-2 lg:flex items-center justify-between gap-3 w-full;
 }
 .dashboard-card-section{
   @apply w-full flex flex-col gap-3 p-4 rounded-[10px] h-[180px]
@@ -769,7 +769,7 @@
 .dashboard-card-main .icon-style{
   @apply text-[40px]
 }
-.dashboard-card-main .icon-style-1{
+.dashboard-card-main .icon-style-1, .red-style{
   @apply text-[red]
 }
 .dashboard-card-main .icon-style-2{
@@ -778,9 +778,20 @@
 .dashboard-card-main .icon-style-3{
   @apply text-[orange]
 }
-.dashboard-card-main .icon-style-4{
+.dashboard-card-main .icon-style-4, .green-style{
   @apply text-[green]
 }
-
+.dashboard-card-section .dashboard-card-section-3{
+  @apply flex items-center justify-between
+}
+.sign-choice .red-style, .sign-choice .green-style{
+  @apply text-[20px]
+}
+.sign-choice span{
+  @apply text-[14px]
+}
+.dashboard-card-section .dashboard-card-section-3 .sign-choice{
+  @apply flex items-center
+}
 /* card styling ends */
 /* dashboard styling ends */
