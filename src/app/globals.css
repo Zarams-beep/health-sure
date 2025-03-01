@@ -750,7 +750,7 @@
 /* side bar styling ends */
 
 .dashboard-main-page-container{
-  @apply bg-white-offWhite w-full px-5 py-3 flex flex-col
+  @apply bg-white-offWhite w-full px-5 py-3 flex flex-col gap-5
 }
 
 /* card styling starts */
@@ -794,4 +794,12 @@
   @apply flex items-center
 }
 /* card styling ends */
+
+/* Anatomy styling starts */
+.anatomy-diagram{
+  @apply bg-[red]
+}
+/* Anatomy styling ends */
+
+
 /* dashboard styling ends */
