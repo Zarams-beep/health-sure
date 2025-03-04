@@ -89,15 +89,12 @@ export default function HeaderSection() {
 
           {/* header part 3 */}
           <div className="header-part-3">
-            <button className="login-btn" >
-            <Link href="/auth/log-in">
+            <button className="login-btn" onClick={() => window.location.href = "/auth/log-in"}>
               Log In
-              </Link>
               </button>
-            <button className="signup-btn">
-            <Link href="/auth/sign-up">
+
+            <button className="signup-btn" onClick={() => window.location.href = "/auth/sign-up"}>
               Sign Up
-              </Link>
               </button>
           </div>
         </div>

@@ -66,7 +66,7 @@ export default function MediaHeaderSection() {
           </div>
         </div>
 
-        <div className="media-header-part-2">
+        <div className={isMobile ? "media-header-part-2" : "header-part-2"}>
           {/* Mobile Menu Toggle */}
           <div className="menu-container">
             {isMobile && (

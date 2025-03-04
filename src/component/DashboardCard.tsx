@@ -44,10 +44,10 @@ Card.propTypes = {
 const CardsSection = () => {
   return (
     <div className="dashboard-card-main">
-      <Card title="Heart Rate" value="72 BPM" signRate="+" change="3%" icon={<FaHeart className="icon-style icon-style-1" />} bgColor="#FDE2E4" type="Vital Sign" />
-      <Card title="Blood Pressure" value="120/80 mmHg" signRate="-" change="1%" icon={<FaTachometerAlt className="icon-style icon-style-2" />} bgColor="#E6F1FD" type="Vital Sign" />
-      <Card title="Blood Sugar" value="98 mg/dL" signRate="+" change="5%" icon={<FaTint className="icon-style icon-style-3" />} bgColor="#FFF4E6" type="Glucose Level" />
-      <Card title="Oxygen Saturation" value="97% SpO2" signRate="-" change="2%" icon={<FaLungs className="icon-style icon-style-4" />} bgColor="#E2FCE4" type="Oxygen Level" />
+      <Card title="Heart Rate" value="72 BPM" signRate="+" change="3%" icon={<FaHeart className="icon-style icon-style-1" />} bgColor="#FDE7E5" type="Vital Sign" />
+      <Card title="Blood Pressure" value="120/80 mmHg" signRate="-" change="1%" icon={<FaTachometerAlt className="icon-style icon-style-2" />} bgColor="#E3ECFA" type="Vital Sign" />
+      <Card title="Blood Sugar" value="98 mg/dL" signRate="+" change="5%" icon={<FaTint className="icon-style icon-style-3" />} bgColor="#EDE4F3" type="Glucose Level" />
+      <Card title="Oxygen Saturation" value="97% SpO2" signRate="-" change="2%" icon={<FaLungs className="icon-style icon-style-4" />} bgColor="#E3ECFA" type="Oxygen Level" />
     </div>
   );
 };

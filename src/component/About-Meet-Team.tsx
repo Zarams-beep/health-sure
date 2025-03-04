@@ -4,8 +4,6 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-// Import Next.js Image Component
 import Image from "next/image";
 
 export default function TeamSection() {
@@ -14,31 +12,31 @@ export default function TeamSection() {
       name: "Dr. Amanda Lee",
       role: "Chief Medical Officer",
       bio: "With over 15 years of experience, Amanda leads our healthcare team with a passion for patient-centered care.",
-      image: "/img-4.jpg",
+      image: "/female1.jpg",
     },
     {
       name: "John Thompson",
       role: "Financial Strategist",
       bio: "John is a seasoned financial expert who crafts sustainable healthcare financing solutions.",
-      image: "/img-7.jpg",
+      image: "/male1.jpg",
     },
     {
       name: "Sarah Ahmed",
       role: "Tech Lead",
       bio: "A tech enthusiast, Sarah drives innovation with her expertise in healthtech systems.",
-      image: "/img-8.jpg",
+      image: "/female2.jpg",
     },
     {
       name: "Michael O'Connor",
       role: "Operations Manager",
       bio: "Michael ensures seamless operations and exceptional service delivery.",
-      image: "/img-5.jpg",
+      image: "/male2.jpg",
     },
     {
       name: "Emily Chen",
       role: "Customer Success Manager",
       bio: "Emily is dedicated to enhancing user experiences and building meaningful client relationships.",
-      image: "/hero-img-1.jpg",
+      image: "/female1.jpg",
     },
   ];
 
