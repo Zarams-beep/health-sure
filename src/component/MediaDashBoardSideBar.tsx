@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { useMediaQuery } from "react-responsive";
+import { useState, useEffect} from "react";
+// import { useMediaQuery } from "react-responsive";
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { GrTransaction, GrView, GrFormEdit } from "react-icons/gr";
 import { MdOutlinePayment, MdOutlineHealthAndSafety } from "react-icons/md";
@@ -26,8 +26,18 @@ const MobileSidebar = () => {
     setNotificationClick((prev) => !prev);
   };
 
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-
+  const [isMobile, setIsMobile] = useState(false);
+  
+    useEffect(() => {
+        const checkScreenSize = () => {
+          setIsMobile(window.innerWidth < 768);
+        };
+  
+        checkScreenSize(); // Run once
+        window.addEventListener("resize", checkScreenSize);
+  
+        return () => window.removeEventListener("resize", checkScreenSize);
+    }, []);
   const menuItems = [
     { name: "Landing Page", path: "/landing-page", icon: <RiDashboardHorizontalFill /> },
     { name: "Payment", path: "/landing-page/payment", icon: <MdOutlinePayment /> },

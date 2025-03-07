@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import { GiHealthCapsule } from "react-icons/gi";
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { GrTransaction } from "react-icons/gr";
@@ -12,24 +12,35 @@ import { FaUserDoctor, FaHospitalUser } from "react-icons/fa6";
 import { CiHospital1 } from "react-icons/ci";
 import { IoIosChatbubbles, IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import styles from "@/styles/SideBar.module.css";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 const DashboardSideBarPage = () => {
   const pathname = usePathname();
-  const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(false);
-  const router = useRouter();
-  const [isHealthOpen, setIsHealthOpen] = useState<boolean>(false);
-  const [isAppointmentOpen, setIsAppointmentOpen] = useState<boolean>(false);
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [isHealthOpen, setIsHealthOpen] = useState(false);
+  const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
+  const storedFullName = useSelector((state: RootState) => state.auth.fullName);
+  
+  // Ensure fullName is only used on the client
+  const [fullName, setFullName] = useState("Chizaram");
+
+  useEffect(() => {
+    if (storedFullName) {
+      setFullName(storedFullName);
+    }
+  }, [storedFullName]);
 
   const menuItems = [
-    { name: "Landing Page", path: "/landing-page", icon: <RiDashboardHorizontalFill /> },
-    { name: "Payment", path: "/landing-page/payment", icon: <MdOutlinePayment /> },
-    { name: "Transaction", path: "/landing-page/transaction-history", icon: <GrTransaction /> },
+    { name: "Landing Page", path: `/dashboard/${fullName}/landing-page`, icon: <RiDashboardHorizontalFill /> },
+    { name: "Payment", path: `/dashboard/${fullName}/landing-page/payment`, icon: <MdOutlinePayment /> },
+    { name: "Transaction", path: `/dashboard/${fullName}/landing-page/transaction-history`, icon: <GrTransaction /> },
     {
       name: "Manage Health",
       icon: <MdOutlineHealthAndSafety />,
       subItems: [
-        { name: "View Health", path: "/landing-page/manage-health/view-health", icon: <GrView /> },
-        { name: "Edit Health", path: "/landing-page/manage-health/edit-health", icon: <GrFormEdit /> },
+        { name: "View Health", path: `/dashboard/${fullName}/landing-page/manage-health/view-health`, icon: <GrView /> },
+        { name: "Edit Health", path: `/dashboard/${fullName}/landing-page/manage-health/edit-health`, icon: <GrFormEdit /> },
       ],
       isOpen: isHealthOpen,
       toggle: () => setIsHealthOpen(!isHealthOpen),
@@ -38,14 +49,14 @@ const DashboardSideBarPage = () => {
       name: "Book Appointment",
       icon: <BsBookmarkHeartFill />,
       subItems: [
-        { name: "Meet Doctor", path: "/landing-page/book-appointment/meet-doctor", icon: <FaUserDoctor /> },
-        { name: "Visit Hospital", path: "/landing-page/book-appointment/visit-hospital", icon: <CiHospital1 /> },
-        { name: "Appointment History", path: "/landing-page/book-appointment/appointment-history", icon: <FaHospitalUser /> },
+        { name: "Meet Doctor", path: `/dashboard/${fullName}/landing-page/book-appointment/meet-doctor`, icon: <FaUserDoctor /> },
+        { name: "Visit Hospital", path: `/dashboard/${fullName}/landing-page/book-appointment/visit-hospital`, icon: <CiHospital1 /> },
+        { name: "Appointment History", path: `/dashboard/${fullName}/landing-page/book-appointment/appointment-history`, icon: <FaHospitalUser /> },
       ],
       isOpen: isAppointmentOpen,
       toggle: () => setIsAppointmentOpen(!isAppointmentOpen),
     },
-    { name: "Messages", path: "/landing-page/messages", icon: <IoIosChatbubbles /> },
+    { name: "Messages", path: `/dashboard/${fullName}/landing-page/messages`, icon: <IoIosChatbubbles /> },
   ];
 
   return (

@@ -1,6 +1,6 @@
 "use client"; // For Next.js
 
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 // Define TypeScript types
@@ -32,6 +32,18 @@ const bodyTemperatureData: Record<string, BodyTemperatureData[]> = {
 
 export default function BodyTemperatureChart() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof bodyTemperatureData>("January");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768); 
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   return (
     <div className="blood-pressure-container">
@@ -51,16 +63,16 @@ export default function BodyTemperatureChart() {
           ))}
         </select>
       </div>
-      <ResponsiveContainer width="100%" height={350}>
+      <ResponsiveContainer width="100%" height={isSmallScreen ? 250 : 350}>
         <AreaChart data={bodyTemperatureData[selectedMonth]} className="line-chart">
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
+          <XAxis dataKey="date" tick={{ fontSize: isSmallScreen ? 10 : 14 }}/>
+          <YAxis tick={{ fontSize: isSmallScreen ? 10 : 14 }}/>
           <Tooltip />
-          <Legend />
+          <Legend wrapperStyle={{ fontSize: isSmallScreen ? "10px" : "14px" }}/>
           
           {/* Body Temperature Area Chart */}
-          <Area type="monotone" dataKey="temperature" stroke="#FF7043" fill="#FFCCBC" strokeWidth={3} dot={{ r: 6 }} />
+          <Area type="monotone" dataKey="temperature" stroke="#FF7043" fill="#FFCCBC" strokeWidth={isSmallScreen ? 2 : 3} dot={{ r: isSmallScreen ? 4 : 6 }}/>
         </AreaChart>
       </ResponsiveContainer>
     </div>

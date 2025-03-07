@@ -3,7 +3,7 @@ import { GiHealthCapsule } from "react-icons/gi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
 import { useState, useEffect, useRef } from "react";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 import { CgProfile } from "react-icons/cg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,11 +15,18 @@ export default function MediaHeaderSection() {
   const [isSticky, setSticky] = useState(1);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const isMobile = useMediaQuery({ maxWidth: 920 });
-
-//   const handleOpen3 =()=>{
-//     setIsOpen3((prev)=>!prev)
-//   }
+ const [isMobile, setIsMobile] = useState(false);
+   
+     useEffect(() => {
+         const checkScreenSize = () => {
+           setIsMobile(window.innerWidth < 920);
+         };
+   
+         checkScreenSize(); // Run once
+         window.addEventListener("resize", checkScreenSize);
+   
+         return () => window.removeEventListener("resize", checkScreenSize);
+     }, []);
 
   const handleOpen2 = () => {
     setIsOpen2((prev) => !prev);

@@ -3,18 +3,25 @@ import React, { useEffect, useState } from "react";
 import DashboardSideBarPage from "./DashBoardSideBar";
 import DashboardNavBarPage from "./DashBoardNavBar";
 import MobileSidebar from "./MediaDashBoardSideBar";
-import { useRouter } from "next/navigation";
-import { CircularProgress } from "@mui/material";
-import { useAppSelector } from "../store/hooks";
-import { RootState } from "@/store/store";
-import { useMediaQuery } from "react-responsive";
+// import { useRouter } from "next/navigation";
+// import { CircularProgress } from "@mui/material";
+// import { useAppSelector } from "../store/hooks";
+// import { RootState } from "@/store/store";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  // Get fullName from Redux store
-  const fullName = useAppSelector((state: RootState) => state.auth.fullName);
+  // const router = useRouter();
+  // const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+      const checkScreenSize = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+
+      checkScreenSize(); // Run once
+      window.addEventListener("resize", checkScreenSize);
+
+      return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
   // useEffect(() => {
   //   const verifyToken = async () => {
   //     if (!fullName) {
@@ -39,7 +46,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="dashboard-main-container">
       {
-        isMobile?<MobileSidebar/>:<DashboardSideBarPage />
+        !isMobile?<MobileSidebar/>:<DashboardSideBarPage />
       }
       
       <div className="dashboard-main-container-2">

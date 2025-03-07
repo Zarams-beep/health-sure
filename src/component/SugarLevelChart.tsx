@@ -1,6 +1,6 @@
 "use client"; // For Next.js
 
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 // Define TypeScript types
@@ -33,7 +33,18 @@ const bloodSugarData: Record<string, BloodSugarData[]> = {
 
 export default function BloodSugarChart() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof bloodSugarData>("January");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768); 
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
   return (
     <div className="blood-pressure-container">
       <div className="blood-pressure-container-header">
@@ -52,17 +63,19 @@ export default function BloodSugarChart() {
           ))}
         </select>
       </div>
-      <ResponsiveContainer width="100%" height={350}>
+      <ResponsiveContainer width="100%" height={isSmallScreen ? 250 : 350}>
         <BarChart data={bloodSugarData[selectedMonth]} className="line-chart">
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
+          <XAxis dataKey="date" 
+          tick={{ fontSize: isSmallScreen ? 10 : 14 }}/>
+          <YAxis 
+          tick={{ fontSize: isSmallScreen ? 10 : 14 }}/>
           <Tooltip />
-          <Legend />
+          <Legend wrapperStyle={{ fontSize: isSmallScreen ? "10px" : "14px" }}/>
           
           {/* Blood Sugar Bars */}
-          <Bar dataKey="fasting" fill="#FBC02D" name="Fasting" barSize={40} />
-          <Bar dataKey="postMeal" fill="#372D25" name="Post-Meal" barSize={40} />
+          <Bar dataKey="fasting" fill="#FBC02D" name="Fasting" barSize={isSmallScreen ? 20 : 40} />
+          <Bar dataKey="postMeal" fill="#372D25" name="Post-Meal" barSize={isSmallScreen ? 20 : 40} />
         </BarChart>
       </ResponsiveContainer>
     </div>

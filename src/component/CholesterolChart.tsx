@@ -1,6 +1,6 @@
-"use client"; // For Next.js
+"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 // Define TypeScript types
@@ -34,12 +34,24 @@ const cholesterolData: Record<string, CholesterolData[]> = {
 
 export default function CholesterolChart() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof cholesterolData>("January");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768); 
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   return (
     <div className="blood-pressure-container">
       <div className="blood-pressure-container-header">
-        <h2 className="">Cholesterol Levels</h2>
-        
+        <h2 className="text-lg md:text-2xl">Cholesterol Levels</h2>
+
         {/* Month Filter */}
         <select
           className=""
@@ -53,29 +65,43 @@ export default function CholesterolChart() {
           ))}
         </select>
       </div>
-      <ResponsiveContainer width="100%" height={350}>
-        <BarChart data={cholesterolData[selectedMonth]} className="bar-line-chart">
+
+      {/* Bar Chart */}
+      <ResponsiveContainer width="100%" height={isSmallScreen ? 250 : 350}>
+        <BarChart data={cholesterolData[selectedMonth]} className="line-chart">
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
+          <XAxis
+            dataKey="date"
+            tick={{ fontSize: isSmallScreen ? 10 : 14 }}
+          />
+          <YAxis
+            tick={{ fontSize: isSmallScreen ? 10 : 14 }}
+          />
           <Tooltip />
-          <Legend />
-          
+          <Legend wrapperStyle={{ fontSize: isSmallScreen ? "10px" : "14px" }} />
+
           {/* LDL & HDL Bars */}
-          <Bar dataKey="LDL" fill="#E53935" name="LDL Cholesterol" barSize={40} />
-          <Bar dataKey="HDL" fill="#1E88E5" name="HDL Cholesterol" barSize={40} />
+          <Bar dataKey="LDL" fill="#372D25" name="LDL Cholesterol" barSize={isSmallScreen ? 20 : 40} />
+          <Bar dataKey="HDL" fill="#FBC02D" name="HDL Cholesterol" barSize={isSmallScreen ? 20 : 40} />
         </BarChart>
       </ResponsiveContainer>
-      <ResponsiveContainer width="100%" height={350}>
+
+      {/* Line Chart */}
+      <ResponsiveContainer width="100%" height={isSmallScreen ? 250 : 350}>
         <LineChart data={cholesterolData[selectedMonth]} className="line-chart">
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
+          <XAxis
+            dataKey="date"
+            tick={{ fontSize: isSmallScreen ? 10 : 14 }}
+          />
+          <YAxis
+            tick={{ fontSize: isSmallScreen ? 10 : 14 }}
+          />
           <Tooltip />
-          <Legend />
-          
+          <Legend wrapperStyle={{ fontSize: isSmallScreen ? "10px" : "14px" }} />
+
           {/* Total Cholesterol Line */}
-          <Line type="monotone" dataKey="total" stroke="#FBC02D" strokeWidth={3} dot={{ r: 6 }} />
+          <Line type="monotone" dataKey="total" stroke="#FBC02D" strokeWidth={isSmallScreen ? 2 : 3} dot={{ r: isSmallScreen ? 4 : 6 }} />
         </LineChart>
       </ResponsiveContainer>
     </div>

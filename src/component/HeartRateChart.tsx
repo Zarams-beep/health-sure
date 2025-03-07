@@ -1,6 +1,6 @@
 "use client"; // For Next.js
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 // Define TypeScript types
@@ -32,6 +32,18 @@ const heartRateData: Record<string, HeartRateData[]> = {
 
 export default function HeartRateChart() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof heartRateData>("January");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768); 
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   return (
     <div className="blood-pressure-container">
@@ -54,13 +66,17 @@ export default function HeartRateChart() {
       <ResponsiveContainer width="100%" height={350}>
         <LineChart data={heartRateData[selectedMonth]} className="line-chart">
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
+          <XAxis dataKey="date"
+           tick={{ fontSize: isSmallScreen ? 10 : 14 }} 
+          />
+          <YAxis 
+           tick={{ fontSize: isSmallScreen ? 10 : 14 }} 
+           />
           <Tooltip />
-          <Legend />
+          <Legend wrapperStyle={{ fontSize: isSmallScreen ? "10px" : "14px" }}/>
           
           {/* Heart Rate Line */}
-          <Line type="monotone" dataKey="heartRate" stroke="#E53935" strokeWidth={3} dot={{ r: 6 }} />
+          <Line type="monotone" dataKey="heartRate" stroke="#FBC02D" strokeWidth={isSmallScreen ? 2 : 3} dot={{ r: isSmallScreen ? 4 : 6 }} />
         </LineChart>
       </ResponsiveContainer>
     </div>

@@ -8,8 +8,9 @@
 @tailwind utilities;
 
 :root {
-  @apply bg-white-offWhite;
+  @apply bg-white-offWhite h-[100vh];
 }
+
 /* Global */
 *,
 *::after,
@@ -18,7 +19,10 @@
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 .container {
-  @apply w-full h-full;
+  @apply w-full h-[100vh];
+}
+body, html{
+  @apply h-[100vh]
 }
 /* Global ends */
 
@@ -733,11 +737,12 @@
 }
 /* nav bar styling ends */
 /* side bar styling starts */
+
 .dashboard-main-container {
-  @apply flex items-start;
+  @apply flex items-start relative top-0 bottom-0;
 }
 .dashboard-main-container-2 {
-  @apply flex flex-col w-full;
+  @apply flex flex-col w-full ;
 }
 .sidebar.expanded {
   @apply w-1/2 md:w-[25%] lg:w-[20%] xl:w-[15%] 2xl:w-[10%];
@@ -758,6 +763,9 @@
 .sidebar ul li div {
   @apply flex items-center gap-2 hover:cursor-pointer;
 }
+.side-menu-tab.active-tab,.side-menu-tab:hover {
+  @apply bg-brown text-milky font-bold px-2 py-3 rounded-[5px];
+}
 .dropdown-icon {
   @apply hover:cursor-pointer;
 }
@@ -770,33 +778,45 @@
 /* side bar styling ends */
 
 .dashboard-main-page-container {
-  @apply w-full px-5 py-3 flex flex-col gap-10;
+  @apply h-full px-5 py-3 flex flex-col gap-5;
 }
 .dashboard-main-page-container-2 {
-  @apply flex items-start justify-between gap-8;
+  @apply flex lgg:flex-row flex-col h-full items-start justify-between gap-8;
 }
 .dashboard-main-page-container-3 {
-  @apply flex flex-col gap-9 w-full;
+  @apply flex flex-col gap-5 w-full;
 }
-.dashboard-main-page-container-4 {
-  @apply flex items-center gap-3;
+.dashboard-main-page-container-4{
+  @apply flex flex-col gap-4
+}
+.dashboard-main-page-container-4 .chart-selector{
+  @apply grid grid-cols-1 xs:grid-cols-2 smm:grid-cols-3 gap-3
+}
+.dashboard-main-page-container-4 .chart-selector button{
+  @apply bg-milky text-brown rounded-[4px] py-2 text-[14px] font-bold hover:bg-brown hover:text-white-offWhite
+}
+.dashboard-main-page-container-4 .chart-selector .active{
+  @apply bg-brown text-white-offWhite
+}
+.dashboard-main-page-container-5 {
+  @apply flex items-center gap-5 lgg:gap-3 lgg:flex-row flex-col;
 }
 /* card styling starts */
 .dashboard-card-main {
-  @apply grid grid-cols-1 smm:grid-cols-2 lg:flex items-center justify-between gap-3 w-full;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:flex items-center justify-between gap-3 w-full;
 }
 .dashboard-card-section {
-  @apply w-full flex flex-col gap-3 p-4 rounded-[10px] h-[180px];
+  @apply w-full flex flex-col gap-3 p-4 rounded-[10px] h-full smm:h-[180px];
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .dashboard-card-section-2 {
   @apply flex items-start gap-5 justify-between;
 }
 .dashboard-card-section-2 h3 {
-  @apply font-bold text-[20px];
+  @apply font-bold text-[15px] smm:text-[20px];
 }
 .dashboard-card-main .icon-style {
-  @apply text-[40px];
+  @apply text-[25px] smm:text-[40px];
 }
 .red-style {
   @apply text-[red];
@@ -821,10 +841,10 @@
 }
 .sign-choice .red-style,
 .sign-choice .green-style {
-  @apply text-[20px];
+  @apply text-[15px] smm:text-[20px];
 }
 .sign-choice span {
-  @apply text-[14px];
+  @apply text-[12px] smm:text-[14px];
 }
 .dashboard-card-section .dashboard-card-section-3 .sign-choice {
   @apply flex items-center;
@@ -833,21 +853,21 @@
 
 /* Anatomy styling starts */
 .anatomy-diagram {
-  @apply bg-[white] rounded-[4rem];
+  @apply hidden smm:block bg-[white] h-[full] md:w-[500px] w-full rounded-[4rem];
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .semi-appointment-container {
-  @apply bg-transparent flex flex-col gap-3 py-4 px-3 rounded-[10px] text-brown w-full h-[600px];
+  @apply bg-transparent flex flex-col gap-3 py-4 px-3 rounded-[10px] text-brown w-full h-full 1sm:h-[600px];
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .semi-appointment-container header {
   @apply flex items-center justify-between mb-6;
 }
 .semi-appointment-container header h3, .current-diagnosis-container h4, .past-diagnosis-container h4 {
-  @apply text-[20px] font-bold;
+  @apply text-[16px] smm:text-[20px] font-bold;
 }
 .semi-appointment-container header .add-button {
-  @apply text-[20px];
+  @apply text-[16px] smm:text-[20px];
 }
 .semi-appointment-container .appointment-list {
   @apply flex flex-col gap-5;
@@ -865,22 +885,25 @@
   @apply flex flex-col gap-[2px];
 }
 .semi-appointment-container .appointment-info h3 {
-  @apply font-bold text-[18px];
+  @apply font-bold text-[12px] smm:text-[18px];
 }
 .semi-appointment-container .appointment-info p {
-  @apply text-[14px] text-[gray];
+  @apply text-[12px] smm:text-[14px] text-[gray];
 }
 .semi-appointment-container .btn-show{
-  @apply text-[12px] font-bold text-navyBlue
+  @apply text-[10px] smm:text-[12px] font-bold text-navyBlue
 }
 .semi-appointment-container .btn-container{
   @apply flex items-center justify-center
 }
 .semi-appointment-container .btn-container button{
-  @apply flex items-center justify-center text-[14px] bg-brown text-white-offWhite w-[200px] py-2 rounded-[10px] mt-2 font-bold
+  @apply flex items-center justify-center text-[12px] smm:text-[14px] bg-brown text-white-offWhite w-full smm:w-[200px] py-2 rounded-[10px] mt-2 font-bold
 }
 /* Anatomy styling ends */
 /* current diagnosis styling starts */
+.diagnosis-result-container{
+  @apply flex flex-col gap-8 
+}
 .current-diagnosis-container, .past-diagnosis-container{
   @apply flex flex-col gap-3 text-brown
 }
@@ -888,19 +911,19 @@
   @apply flex flex-col gap-2;
 }
 .current-diagnosis-container .current-diagnosis-box h5, .past-diagnosis-container h5 {
-  @apply text-[17px] underline decoration-double decoration-brown font-bold;
+  @apply text-[14px] smm:text-[17px] underline decoration-double decoration-brown font-bold;
 }
-.current-diagnosis-container .current-diagnosis-box p{
-  @apply text-[14px]
+.current-diagnosis-container .current-diagnosis-box p, .past-diagnosis-container .past-diagnosis-box{
+  @apply text-[12px] smm:text-[14px]
 }
 /* current diagnosis styling ends */
 /* blood pressure styling starts */
 .blood-pressure-container {
-  @apply bg-transparent text-brown rounded-[5px];
+  @apply bg-transparent text-brown rounded-[5px] flex flex-col gap-4 py-3 my-3;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .blood-pressure-container-header {
-  @apply flex items-center justify-between p-5 text-[17px];
+  @apply flex items-center smm:flex-row flex-col gap-y-2 mb-2 justify-between p-0 smm:p-5 text-[14px] smm:text-[17px];
 }
 .blood-pressure-container-header h2 {
   @apply font-bold text-brown;
@@ -910,7 +933,7 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .line-chart{
-  @apply px-3 bg-transparent;
+  @apply p-1 smm:px-3 bg-transparent;
 }
 /* blood pressure styling ends */
 /* dashboard styling ends */
