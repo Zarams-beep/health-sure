@@ -1,13 +1,16 @@
-// /pages/[fullName]/[...slug].tsx
-import { useRouter } from "next/router";
+"use client";
+
+import { useRouter, useParams } from "next/navigation";
 import { useEffect } from "react";
 
 const CatchAll = () => {
     const router = useRouter();
-    const { fullName } = router.query;
+    const { fullName } = useParams(); 
 
     useEffect(() => {
-        router.replace(`/${fullName}/page-not-found`);
+        if (fullName) {
+            router.replace(`/${fullName}/page-not-found`);
+        }
     }, [router, fullName]);
 
     return null;
