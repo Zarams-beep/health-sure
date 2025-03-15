@@ -3,17 +3,17 @@
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
+const invalidPaths = [
+  "/auth/log-in",
+  "/auth/sign-up",
+  "/auth/forgot-password",
+  "/auth/verify",
+];
+
 export default function useIsInvalidPath() {
   const pathname = usePathname();
 
-  const invalidPaths = [
-    "/auth/log-in",
-    "/auth/sign-up",
-    "/auth/forgot-password",
-    "/auth/verify",
-  ];
-
   return useMemo(() => {
     return invalidPaths.includes(pathname);
-  }, [pathname]);
+  }, [pathname]); 
 }

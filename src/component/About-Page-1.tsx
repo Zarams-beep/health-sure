@@ -52,7 +52,7 @@ export default function AboutPage() {
       <div className="about-mission-2">
        <h2>Our Vision</h2>
        <p>
-       At Health Sure, we envision a future where financial stability and top-tier healthcare go hand in hand. We aspire to be the leading platform that empowers individuals to take charge of their health expenses, ensuring that every person is prepared for life's medical challenges. Through innovative solutions and unwavering commitment, we aim to transform the way people approach healthcare savings—making quality care accessible, affordable, and stress-free for everyone.
+       At Health Sure, we envision a future where financial stability and top-tier healthcare go hand in hand. We aspire to be the leading platform that empowers individuals to take charge of their health expenses, ensuring that every person is prepared for life&apos;s medical challenges. Through innovative solutions and unwavering commitment, we aim to transform the way people approach healthcare savings—making quality care accessible, affordable, and stress-free for everyone.
         </p>
        </div>
       <div className="img-container">
