@@ -8,7 +8,6 @@ interface SignupState {
     signinSuccess: boolean;
     signinError: string | null;
     isAuthenticated: boolean;
-    // schoolPayload: School | null;
     otpLoading: boolean;
     otpSuccess: boolean;
     otpError: string | null;

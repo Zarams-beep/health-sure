@@ -13,5 +13,9 @@ export const signUpSchema: ZodType<SignUpSubmitFormData> = z
     message: "Re-enter the password correctly",
     path: ["confirmPassword"],
   })
-  .transform(({ confirmPassword, ...rest }) => rest);
+  .transform(({ confirmPassword, ...rest }) => {
+    void confirmPassword;
+    return rest;
+  });
+  
 

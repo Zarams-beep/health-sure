@@ -7,9 +7,6 @@ import sidebarReducer from './slices/sideBarSlices'
 
 const store = configureStore({
   reducer: {
-    // plan: planReducer,
-    // school: profileReducer,
-    // employee: hospitalReducer,
     sidebar: sidebarReducer,
     auth: authReducer,
   },
