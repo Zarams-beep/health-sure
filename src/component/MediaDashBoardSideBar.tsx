@@ -15,7 +15,8 @@ import styles from "@/styles/SideBar.module.css";
 import { IoMdNotifications, IoMdNotificationsOff } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
-
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 const MobileSidebar = () => {
   const pathname = usePathname();
   const [isHealthOpen, setIsHealthOpen] = useState<boolean>(false);
@@ -38,33 +39,45 @@ const MobileSidebar = () => {
   
         return () => window.removeEventListener("resize", checkScreenSize);
     }, []);
-  const menuItems = [
-    { name: "Landing Page", path: "/landing-page", icon: <RiDashboardHorizontalFill /> },
-    { name: "Payment", path: "/landing-page/payment", icon: <MdOutlinePayment /> },
-    { name: "Transaction", path: "/landing-page/transaction-history", icon: <GrTransaction /> },
-    {
-      name: "Manage Health",
-      icon: <MdOutlineHealthAndSafety />,
-      subItems: [
-        { name: "View Health", path: "/landing-page/manage-health/view-health", icon: <GrView /> },
-        { name: "Edit Health", path: "/landing-page/manage-health/edit-health", icon: <GrFormEdit /> },
-      ],
-      isOpen: isHealthOpen,
-      toggle: () => setIsHealthOpen(!isHealthOpen),
-    },
-    {
-      name: "Book Appointment",
-      icon: <BsBookmarkHeartFill />,
-      subItems: [
-        { name: "Meet Doctor", path: "/landing-page/book-appointment/meet-doctor", icon: <FaUserDoctor /> },
-        { name: "Visit Hospital", path: "/landing-page/book-appointment/visit-hospital", icon: <CiHospital1 /> },
-        { name: "Appointment History", path: "/landing-page/book-appointment/appointment-history", icon: <FaHospitalUser /> },
-      ],
-      isOpen: isAppointmentOpen,
-      toggle: () => setIsAppointmentOpen(!isAppointmentOpen),
-    },
-    { name: "Messages", path: "/landing-page/messages", icon: <IoIosChatbubbles /> },
-  ];
+
+      const storedFullName = useSelector((state: RootState) => state.auth.fullName);
+      
+      // Ensure fullName is only used on the client
+      const [fullName, setFullName] = useState("Chizaram");
+    
+      useEffect(() => {
+        if (storedFullName) {
+          setFullName(storedFullName);
+        }
+      }, [storedFullName]);
+    
+      const menuItems = [
+        { name: "Landing Page", path: `/dashboard/${fullName}/landing-page`, icon: <RiDashboardHorizontalFill /> },
+        { name: "Payment", path: `/dashboard/${fullName}/payment`, icon: <MdOutlinePayment /> },
+        { name: "Transaction", path: `/dashboard/${fullName}/transaction-history`, icon: <GrTransaction /> },
+        {
+          name: "Manage Health",
+          icon: <MdOutlineHealthAndSafety />,
+          subItems: [
+            { name: "View Health", path: `/dashboard/${fullName}/manage-health/view-health`, icon: <GrView /> },
+            { name: "Edit Health", path: `/dashboard/${fullName}/manage-health/edit-health`, icon: <GrFormEdit /> },
+          ],
+          isOpen: isHealthOpen,
+          toggle: () => setIsHealthOpen(!isHealthOpen),
+        },
+        {
+          name: "Book Appointment",
+          icon: <BsBookmarkHeartFill />,
+          subItems: [
+            { name: "Meet Doctor", path: `/dashboard/${fullName}/landing-page/book-appointment/meet-doctor`, icon: <FaUserDoctor /> },
+            { name: "Visit Hospital", path: `/dashboard/${fullName}/landing-page/book-appointment/visit-hospital`, icon: <CiHospital1 /> },
+            { name: "Appointment History", path: `/dashboard/${fullName}/landing-page/book-appointment/appointment-history`, icon: <FaHospitalUser /> },
+          ],
+          isOpen: isAppointmentOpen,
+          toggle: () => setIsAppointmentOpen(!isAppointmentOpen),
+        },
+        { name: "Messages", path: `/dashboard/${fullName}/landing-page/messages`, icon: <IoIosChatbubbles /> },
+      ];
 
   return (
     <aside className={`${styles.sidebar} sidebar`}>

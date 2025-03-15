@@ -33,14 +33,14 @@ const DashboardSideBarPage = () => {
 
   const menuItems = [
     { name: "Landing Page", path: `/dashboard/${fullName}/landing-page`, icon: <RiDashboardHorizontalFill /> },
-    { name: "Payment", path: `/dashboard/${fullName}/landing-page/payment`, icon: <MdOutlinePayment /> },
-    { name: "Transaction", path: `/dashboard/${fullName}/landing-page/transaction-history`, icon: <GrTransaction /> },
+    { name: "Payment", path: `/dashboard/${fullName}/payment`, icon: <MdOutlinePayment /> },
+    { name: "Transaction", path: `/dashboard/${fullName}/transaction-history`, icon: <GrTransaction /> },
     {
       name: "Manage Health",
       icon: <MdOutlineHealthAndSafety />,
       subItems: [
-        { name: "View Health", path: `/dashboard/${fullName}/landing-page/manage-health/view-health`, icon: <GrView /> },
-        { name: "Edit Health", path: `/dashboard/${fullName}/landing-page/manage-health/edit-health`, icon: <GrFormEdit /> },
+        { name: "View Health", path: `/dashboard/${fullName}/manage-health/view-health`, icon: <GrView /> },
+        { name: "Edit Health", path: `/dashboard/${fullName}/manage-health/edit-health`, icon: <GrFormEdit /> },
       ],
       isOpen: isHealthOpen,
       toggle: () => setIsHealthOpen(!isHealthOpen),

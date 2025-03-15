@@ -24,8 +24,8 @@ const config: Config = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      navyBlue: "#06259B", // --navy-blue variable color
-      lightGrey: "#D9D9D9", // Used in selected category button
+      navyBlue: "#06259B",
+      lightGrey: "#D9D9D9",
       brown: {
         gold: "#b87d50",
         grey: "#f3dbc8",

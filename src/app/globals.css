@@ -8,7 +8,7 @@
 @tailwind utilities;
 
 :root {
-  @apply bg-white-offWhite h-[100vh];
+  @apply bg-white-offWhite;
 }
 
 /* Global */
@@ -19,11 +19,11 @@
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 .container {
-  @apply w-full h-[100vh];
+  @apply w-full;
 }
-body, html{
+/* body, html{
   @apply h-[100vh]
-}
+} */
 /* Global ends */
 
 /* header styling starts */
@@ -515,11 +515,11 @@ body, html{
 
 /* contact us styling starts */
 .contactUs-form-section {
-  @apply bg-cover bg-center px-7 base:px-12 py-10;
+  @apply bg-cover bg-center px-7 h-full w-full base:px-12 ;
   background-image: url("/hero-img-2.jpg");
 }
 .contactUs-form-body {
-  @apply flex flex-col gap-9 bg-[#372d2593] text-milky p-8 rounded-[4rem];
+  @apply flex flex-col gap-9 bg-[#372d2593] text-milky p-8 rounded-[4rem] h-auto py-5;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .contactUs-form-body .firstHeader {
@@ -937,3 +937,249 @@ body, html{
 }
 /* blood pressure styling ends */
 /* dashboard styling ends */
+
+/* wallet styling starts */
+.main-wallet-container{
+  @apply flex items-start justify-between w-full px-10  h-full gap-4 relative my-4
+}
+.wallet-container{
+  @apply flex flex-col gap-6 w-full h-full pr-6;
+}
+ .balance-main{
+  @apply flex items-start justify-between lg:flex-row flex-col gap-y-3;
+}
+.balance-main .welcome-msg{
+  @apply w-full flex flex-col text-[#372D25]
+}
+.balance-main .welcome-msg h3{
+  @apply text-[20px] sm:text-[30px] font-bold
+}
+.balance-main .welcome-msg p{
+  @apply text-[15px] sm:text-[18px]
+}
+.balance-main .balance-container {
+  @apply bg-gradient-to-b from-[#CBB590] to-[#372D25] w-full h-[168px] 
+         rounded-[10px] text-[#FEF8EF] text-[20px] font-[500] p-5 pb-8 flex flex-col justify-between;
+}
+
+ .balance-main .balance-container .left-side{
+  @apply flex items-center justify-between
+}
+ .balance-main .balance-container .left-side section .wallet{
+  @apply text-[45px];
+}
+ .balance-main .balance-container .left-side section{
+  @apply flex items-center gap-4
+}
+ .balance-main .balance-container .left-side section img{
+  @apply w-[31px] h-[33px]
+}
+.balance-main .balance-container .left-side section p{
+  @apply font-bold sm:flex hidden text-[26px]
+}
+ .balance-main button{
+  @apply text-[20px]
+}
+.wallet-quick-actions-container{
+  @apply flex flex-col gap-4
+}
+.wallet-quick-actions-container h3{
+  @apply text-[20px] leading-[100%] font-[500]
+}
+.wallet-quick-actions-container .wallet-quick-actions-container-2{
+  @apply flex flex-col gap-9
+}
+.wallet-quick-actions-container .wallet-quick-actions-container-2 .wallet-quick-action{
+  @apply flex items-center px-5 py-8 justify-between w-full h-[83px] rounded-[5px] bg-[#FEF8EF]  text-[#372D25] 
+}
+.wallet-quick-actions-container .wallet-quick-actions-container-2  .wallet-quick-action-2{
+  @apply flex items-center gap-5;
+}
+.wallet-quick-actions-container .wallet-quick-action-text{
+  @apply flex flex-col gap-1 items-start
+}
+.wallet-quick-actions-container .wallet-quick-action-text h4{
+  @apply text-[15px] sm:text-[18px]
+}
+.wallet-quick-actions-container .wallet-quick-action-text p{
+  @apply text-[13px] md:text-[16px] smm:flex hidden text-start
+}
+.wallet-quick-actions-container .wallet-quick-action-arrow{
+  @apply sm:flex hidden sm:text-[25px]
+}
+.back-button{
+  @apply text-[20px]
+}
+/* wallet styling ends */
+
+/* pay via card styling starts */
+.pay-via-card-section,.bank-transfer-container{
+  @apply flex flex-col gap-6 w-full smm:w-[1000px];
+}
+.pay-via-card-section header, .bank-transfer-container header{
+  @apply flex items-start gap-5
+}
+.pay-via-card-section header div{
+  @apply flex flex-col gap-4;
+}
+.pay-via-card-section header div h2, .bank-transfer-container header h2{
+  @apply text-[18px] sm:text-[25px] font-[500] leading-[100%] text-[#372D25];
+
+}
+.pay-via-card-section header div h5{
+  @apply text-[14px] sm:text-[16px] font-[500] leading-[100%] text-[#372D25];
+}
+.pay-via-card-section form{
+  @apply flex flex-col gap-9 px-4 py-2;
+}
+.pay-via-card-section form section{
+  @apply flex flex-col gap-4 space-y-4
+}
+.pay-via-card-section form section .input-section{
+  @apply flex flex-col w-full gap-4
+}
+.pay-via-card-section form section .input-section label{
+  @apply text-[#372D25] text-[13px] sm:text-[15px] smm:text-[17px] font-[500] leading-[100%];
+}
+.pay-via-card-section form section .input-section input{
+  @apply border border-[#B3B3B3] bg-transparent rounded-[7px] px-2 py-4 text-[14px] sm:text-[16px]
+}
+.expiry-cvv{
+  @apply flex items-center justify-between gap-4 smm:flex-row flex-col;
+}
+.error{
+  @apply text-[red] lg:text-[14px] text-[12px]
+}
+.save-card,.secure-paystack{
+  @apply flex items-center space-x-2
+}
+.save-card input{
+  @apply border border-[#F1F1F1]
+}
+.save-card label{
+  @apply text-[#372D25] text-[12px] sm:text-[14px] font-[500] leading-[100%];
+}
+.secure-paystack{
+  @apply text-[14px] text-[#333333] leading-[100%] font-[500];
+}
+.getStartedBtn, .getStartedBtnTransfer {
+  @apply w-full flex items-center flex-col justify-center gap-[2rem] text-[12px] 1sm:text-[16px];
+}
+.getStartedBtn button {
+@apply w-full h-full  1sm:w-[326px] 1sm:h-[52px] no-underline rounded-[7px] py-[14px] 
+         bg-gradient-to-b from-[#CBB590] to-[#372D25] text-[white] font-[700] hover:cursor-pointer flex items-center justify-center
+         hover:from-[#CBB590] hover:to-[#372D25];
+}
+.getStartedBtnTransfer button{
+  @apply w-full h-full  smm:w-[326px] smm:h-[52px] no-underline rounded-[7px] py-[14px] 
+  bg-gradient-to-b from-[#CBB590] to-[#372D25] text-[white] font-[700] hover:cursor-pointer flex items-center justify-center
+  hover:from-[#CBB590] hover:to-[#372D25];
+}
+
+/* bank transfer styling starts */
+.wallet-action-step{
+  @apply flex flex-col gap-2 items-start
+}
+.bank-transfer-section{
+  @apply flex flex-col gap-5 w-full
+}
+.bank-transfer-section .transfer-details, .drop-down-section select{
+  @apply flex flex-col gap-3 border border-[#F1F1F1] bg-[#FEF8EF] rounded-[5px] px-4 py-2 h-[57px]  justify-center
+}
+.transfer-details-2{
+  @apply flex items-center justify-between border border-[#F1F1F1] bg-[#FEF8EF] rounded-[5px] px-4 py-2 h-[57px] 
+}
+.transfer-details-2 div{
+  @apply flex flex-col gap-2
+}
+.transfer-details h6,  .transfer-details-2 div h6{
+  @apply text-[12px] sm:text-[14px] font-[400] text-[#372D25] leading-[100%];
+}
+.transfer-details p,  .transfer-details-2 div p{
+  @apply text-[14px] sm:text-[16px] text-[#372D25] font-[500] leading-[100%];
+  font-family: "Montserrat", sans-serif;
+}
+.copy-container{
+  @apply cursor-pointer relative
+}
+.copy-container span{
+  @apply absolute top-[-20px] left-1/2 transform -translate-x-1/2 bg-[#F1F1F1] text-white text-xs px-2 py-1 rounded
+}
+/* bank transfer styling ends */
+
+
+/* modal bank styling starts*/
+.modal-overlay {
+  @apply fixed top-0 left-0 w-full h-full bg-[#ffffffaf] z-[1000] flex items-center justify-center;
+}
+
+.modal-content {
+  @apply w-[288px] h-[265px] bg-[#FFFFFF] flex flex-col gap-[2rem] rounded-[10px] px-[2rem] py-[1rem] justify-center items-center border border-[#F1F1F1];
+}
+.modal-content h3 {
+  @apply font-bold;
+  font-family: "Lato", sans-serif;
+}
+.modal-content .modal-img {
+  @apply w-[84px] h-[79px];
+}
+.modal-content .modal-btn-container {
+  @apply w-full h-full  1sm:w-[126px] 1sm:h-[52px] no-underline rounded-[7px] py-[14px] 
+  bg-gradient-to-r from-[#0064FF] to-[#000041] text-[white] font-[700] hover:cursor-pointer flex items-center justify-center
+  hover:from-[#0044CC] hover:to-[#000020];
+}
+
+
+/* modal bank styling ends */
+/* bank ussd styling starts */
+.drop-down-section{
+  @apply flex flex-col gap-2;
+
+}
+.drop-down-section label{
+  @apply text-[14px] sm:text-[16px] text-[#372D25] font-[500] leading-[100%];
+}
+.drop-down-section select{
+  @apply flex items-center text-[14px] sm:text-[16px]
+}
+/* bank ussd styling ends */
+/* pay via card styling ends */
+.table-header{
+  @apply font-bold text-[20px] text-[#372D25]
+}
+.table-body{
+  @apply text-[15px]
+}
+.table-cell{
+  @apply flex items-center gap-3
+}
+.wallet-container .removeType{
+  @apply md:table-cell hidden;
+}
+.wallet-container .removeAmount{
+  @apply smm:table-cell hidden;
+}
+.modal-transaction{
+  @apply bg-white-offWhite text-brown w-full
+}
+.modal-transaction .transaction-header{
+  @apply text-[16px] sm:text-[20px]
+}
+.modal-transaction-2{
+  @apply flex flex-col gap-2
+}
+.modal-transaction-2 p{
+  @apply smm:text-[16px] text-[14px]
+}
+.modal-transaction .transaction-text{
+  @apply flex items-center gap-2 flex-row
+}
+.btn-modal-container{
+  @apply flex items-center gap-2
+}
+.btn-modal-container button{
+  @apply bg-[red] px-4 py-2 rounded-[4px] font-bold text-brown
+}
+.btn-modal-container .print-btn{
+  @apply bg-[blue]
+}

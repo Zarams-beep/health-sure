@@ -46,7 +46,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="dashboard-main-container">
       {
-        !isMobile?<MobileSidebar/>:<DashboardSideBarPage />
+        isMobile?<MobileSidebar/>:<DashboardSideBarPage />
       }
       
       <div className="dashboard-main-container-2">
