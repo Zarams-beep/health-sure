@@ -707,7 +707,7 @@
   @apply w-full h-full rounded-[100%] bg-cover bg-center;
 }
 .dashboard-header .dashboard-nav-bar .profile-section .profile-small h4 {
-  @apply font-[800px] mb-[-.4rem];
+  @apply font-[800px] capitalize mt-2 leading-[13px] flex-wrap;
 }
 .dashboard-header .dashboard-nav-bar .profile-section .profile-small p {
   @apply text-[12px];
