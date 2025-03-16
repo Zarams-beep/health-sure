@@ -604,7 +604,7 @@
 /* auth styling starts */
 /* login styling starts */
 .login-container {
-  @apply h-[1300px] md:h-[900px] w-full overflow-hidden flex md:flex-row flex-col items-center justify-between;
+  @apply h-[700px] md:h-[900px] w-full overflow-hidden flex md:flex-row flex-col items-center justify-between;
 }
 /* .signup-container {
   @apply h-[100vh];
@@ -613,8 +613,11 @@
 .login-form-container {
   @apply w-full h-full;
 }
+.login-left{
+  @apply md:flex hidden
+}
 .login-image {
-  @apply w-full h-full;
+  @apply  w-full h-full;
 }
 .login-form-container {
   @apply bg-milky py-8 px-10 flex flex-col gap-6 text-brown;
@@ -668,29 +671,6 @@
 }
 /* sign up styling ends */
 /* auth styling ends */
-
-/* page not found container styling starts */
-.page-not-found-container {
-  @apply flex items-center justify-center  bg-cover bg-center px-7 base:px-12 py-10;
-  background-image: url("/hero-img-2.jpg");
-}
-.page-not-found-2 {
-  @apply bg-white-offWhite rounded-[2rem] flex 
-   p-10 w-[500px] items-center justify-center;
-}
-.page-not-found-container .page-not-found-2 section {
-  @apply flex flex-col gap-4 text-center text-brown text-[15px] xs:text-[17px];
-}
-.page-not-found-container .page-not-found-2 section h1 {
-  @apply text-[20px] xs:text-[30px]  font-bold;
-}
-.page-not-found-container .btn-div {
-  @apply flex items-center justify-center;
-}
-.page-not-found-container .page-not-found-2 button {
-  @apply bg-brown text-white-offWhite hover:bg-milky hover:text-brown font-bold text-[15px] xs:text-[17px] rounded-[4px] py-1 xs:py-3 w-full xs:w-[200px];
-}
-/* page notfound container styling ends */
 
 /* dashboard styling starts */
 
