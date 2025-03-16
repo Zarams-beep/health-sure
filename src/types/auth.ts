@@ -33,4 +33,14 @@ interface SignupState {
   };
   
 
+  // Type definition for form data
+  export type ContactUsFormData = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    subject: string;
+    message?: string;
+  };
+  
 export type { SignupState }

@@ -2,34 +2,15 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z, ZodType } from "zod";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FaTwitter, FaDiscord } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaPhoneVolume, FaLocationDot } from "react-icons/fa6";
 import { useState } from "react";
-// Type definition for form data
-export type ContactUsFormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  subject: string;
-  message?: string;
-};
+import { ContactUsFormData } from "@/types/auth";
+import { contactUsSchema } from "@/features/contactSchema";
 
-// Schema validation using Zod
-export const contactUsSchema: ZodType<ContactUsFormData> = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Invalid email address").min(1, "Email is required"),
-  phoneNumber: z
-    .string()
-    .min(10, "Phone number must be at least 10 digits")
-    .regex(/^\d+$/, "Phone number must contain only digits"),
-  subject: z.string().min(1, "Subject selection is required"),
-  message: z.string().min(1, "Message is required"),
-});
+
 
 export default function ContactUsForm() {
   const [loading, setLoading] = useState(false);
