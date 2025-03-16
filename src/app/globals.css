@@ -1042,7 +1042,7 @@
   @apply text-[#372D25] text-[13px] sm:text-[15px] smm:text-[17px] font-[500] leading-[100%];
 }
 .pay-via-card-section form section .input-section input{
-  @apply border border-[#B3B3B3] bg-transparent rounded-[7px] px-2 py-4 text-[14px] sm:text-[16px]
+  @apply border border-[#B3B3B3] bg-transparent rounded-[7px] px-2 py-4 text-[14px] sm:text-[16px] w-full
 }
 .expiry-cvv{
   @apply flex items-center justify-between gap-4 smm:flex-row flex-col;
