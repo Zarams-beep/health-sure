@@ -71,7 +71,7 @@ const fullName = watch("fullName");
           <h2 className="form-title">Hi, Welcome back</h2>
           <p className="form-subtitle">
             Don’t have an account?&nbsp;&nbsp;
-            <Link href={"/auth/signup"} className="linking-auth">
+            <Link href={"/auth/sign-up"} className="linking-auth">
               Sign Up
             </Link>
           </p>
