@@ -1,18 +1,27 @@
 "use client";
-import { useState, useEffect, ReactNode } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useState, useEffect, ReactNode, Suspense } from "react";
+import { useSearchParams, usePathname } from "next/navigation"; // Correct import
 import MediaHeaderSection from "@/component/MediaHeader";
 import HeaderSection from "@/component/Header";
 import MainLayout from "@/component/MainLayout";
 import useInvalidPaths from "./hooks/invalid-path";
-import React, { Suspense } from "react";
+import React from "react";
+
+// Separate component to handle search params
+function QueryParamHandler({ setFullNames }: { setFullNames: (name: string | undefined) => void }) {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    setFullNames(searchParams.get("fullName") ?? undefined);
+  }, [searchParams, setFullNames]);
+
+  return null; // No UI, only handles state update
+}
 
 type ClientSideWrapperProps = {
   children: ReactNode;
 };
 
 export default function ClientSideWrapper({ children }: ClientSideWrapperProps) {
-  const searchParams = useSearchParams();
   const pathname = usePathname();
   const isInvalidPath = useInvalidPaths();
 
@@ -23,13 +32,6 @@ export default function ClientSideWrapper({ children }: ClientSideWrapperProps) 
   useEffect(() => {
     setHasMounted(true); // Ensure no SSR mismatch
   }, []);
-
-  useEffect(() => {
-    if (hasMounted) {
-      const name = searchParams.get("fullName");
-      setFullNames(name ?? undefined);
-    }
-  }, [searchParams, hasMounted]);
 
   useEffect(() => {
     if (hasMounted) {
@@ -47,6 +49,11 @@ export default function ClientSideWrapper({ children }: ClientSideWrapperProps) 
 
   return (
     <main className={` ${isInvalidPath ? "mt-0" : ""} main-wrapping-container`}>
+      {/* Handle search params inside Suspense */}
+      <Suspense fallback={null}>
+        <QueryParamHandler setFullNames={setFullNames} />
+      </Suspense>
+
       {useMainLayout ? (
         <MainLayout>
           <Suspense fallback={<p>Loading page...</p>}>{children}</Suspense>
