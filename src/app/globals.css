@@ -604,7 +604,7 @@
 /* auth styling starts */
 /* login styling starts */
 .login-container {
-  @apply h-screen w-full overflow-hidden flex md:flex-row flex-col items-center justify-between;
+  @apply h-[1300px] md:h-[900px] w-full overflow-hidden flex md:flex-row flex-col items-center justify-between;
 }
 /* .signup-container {
   @apply h-[100vh];
