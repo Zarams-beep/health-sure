@@ -1,7 +1,7 @@
 "use client";
 import { Provider } from "react-redux";
 import store from "@/store/store";
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, useCallback } from "react";
 // import { useMediaQuery } from "react-responsive";
 import MediaHeaderSection from "@/component/MediaHeader";
 import HeaderSection from "@/component/Header";
@@ -33,10 +33,16 @@ export default function MainWrapper({ children }: MainWrapperProps) {
     }, []);
   const isInvalidPath = useInvalidPaths();
 
-  useEffect(() => {
-    const name = searchParams.get("fullName");
+  const updateFullName = useCallback((name: string | undefined) => {
     setFullNames(name || undefined);
-  }, [searchParams]);
+  }, []);
+
+  useEffect(() => {
+    const name = searchParams.get("fullName") ?? undefined; // Convert null to undefined
+    updateFullName(name);
+  }, [searchParams, updateFullName]);
+  
+
 
   // Check if the current page is part of the dashboard
   const isDashboard = pathname.startsWith("/dashboard");
