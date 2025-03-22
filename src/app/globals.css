@@ -1124,6 +1124,8 @@
 }
 /* bank ussd styling ends */
 /* pay via card styling ends */
+
+/* modal transaction, table styling starts */
 .table-header{
   @apply font-bold text-[20px] text-[#372D25]
 }
@@ -1163,3 +1165,57 @@
 .btn-modal-container .print-btn{
   @apply bg-[blue]
 }
+/* modal transaction, table styling ends */
+
+/* manage health styling starts */
+/* basic info styling starts */
+.view-main-container{
+  @apply grid grid-cols-2 bg-[red] mt-3
+}
+.edit-basic-info{
+  @apply rounded-[10px] p-4 border border-brown-grey flex flex-col gap-7 text-brown;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.edit-basic-info h2{
+  @apply text-[30px] text-center font-bold
+}
+.form-health-container-main{
+  @apply flex flex-col gap-4
+}
+.form-health-container{
+  @apply flex flex-wrap gap-x-7 gap-y-3
+}
+
+.form-health-container .form-health-sub, 
+.form-health-container .form-health-sub2 .form-health-vital .form-health-vital-2{
+  @apply flex flex-col gap-1 w-[540px]
+}
+.form-health-container .form-health-sub2{
+  @apply flex flex-col mt-4 gap-3 w-full
+}
+.form-health-container .form-health-sub2 h3{
+  @apply font-semibold text-[18px]
+}
+.form-health-container .form-health-sub2 .form-health-vital{
+  @apply grid grid-cols-2 gap-x-2 gap-y-3 w-full
+}
+
+.form-health-container .form-health-sub label, .form-health-container .form-health-sub2 .form-health-vital .form-health-vital-2 label{
+  @apply text-[15px] font-semibold
+}
+.form-health-container .form-health-sub input, .form-health-container .form-health-sub select, .form-health-container .form-health-sub2 .form-health-vital .form-health-vital-2 input{
+  @apply p-2 placeholder:text-[16px] rounded-[5px] outline-brown bg-transparent border border-lightGrey text-[16px]
+}
+.red-error{
+  @apply text-[red] text-[14px]
+}
+.form-health-container .disable{
+  @apply bg-lightGrey text-brown
+}
+.form-health-container .active{
+  @apply bg-brown text-white-offWhite
+}
+.form-health-container .back-active{
+  @apply bg-milky text-brown
+}
+/* manage health styling ends */
