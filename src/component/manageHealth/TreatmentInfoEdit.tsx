@@ -56,7 +56,8 @@ export default function TreatmentInfoEdit({ onNext, onBack }: Props) {
   return (
     <div className="edit-basic-info">
         <h2>Edit Treatment Info</h2>
-      <form onSubmit={handleSubmit(handleFormSubmit)} className="form-health-container">
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="form-health-container-main">
+        <div className="form-health-container">
         <div className="form-health-sub">
             <label htmlFor="Doctor Name">Doctor Name</label>
           <input
@@ -136,7 +137,7 @@ export default function TreatmentInfoEdit({ onNext, onBack }: Props) {
               {errors.upcomingAppointments[0].location.message}
             </p>
           )}
-        </div>
+        </div></div>
 
         {/* Buttons */}
         <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>

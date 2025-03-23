@@ -1,7 +1,7 @@
 export interface HealthStatus {
   healthCondition: string;
   vitalSigns: {
-    bloodPressure: string;
+    bloodPressure: number;
     heartRate: number;
     temperature: number;
     sugar: number;

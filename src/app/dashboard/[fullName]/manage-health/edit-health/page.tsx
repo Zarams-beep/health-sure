@@ -6,8 +6,9 @@ import BasicInfoEditSection from "@/component/manageHealth/BasicInfoEdit";
 import HealthStatusEdit from "@/component/manageHealth/HealthStatusEdit";
 import MedicalHistoryEdit from "@/component/manageHealth/MedicalHistoryEdit";
 import TreatmentInfoEdit from "@/component/manageHealth/TreatmentInfoEdit";
+import LabResultsEdit from "@/component/manageHealth/LabResultEdit";
 
-const steps = ["Basic Info", "Health Status", "Medical History", "Treatment Info"];
+const steps = ["Basic Info", "Health Status", "Medical History", "Treatment Info", "Lab Result"];
 
 export default function EditHealthPage() {
   const [activeStep, setActiveStep] = useState(0);
@@ -40,6 +41,7 @@ export default function EditHealthPage() {
           {activeStep === 1 && <HealthStatusEdit onNext={handleNext} onBack={handleBack} />}
           {activeStep === 2 && <MedicalHistoryEdit onNext={handleNext} onBack={handleBack} />}
           {activeStep === 3 && <TreatmentInfoEdit onNext={handleNext} onBack={handleBack} />}
+          {activeStep === 4 && <LabResultsEdit onNext={handleNext} onBack={handleBack} />}
         </Box>
       </div>
     </div>

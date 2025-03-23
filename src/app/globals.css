@@ -1226,13 +1226,21 @@
 .allergy-input input{
   @apply w-full
 }
-.allergy-input button, .add-allergy-btn{
+.allergy-input button, .add-allergy-btn, .btn-med{
   @apply bg-[#b82424] text-white-offWhite rounded-[5px] px-2 text-[13px] h-full font-bold
 }
 .add-allergy-btn-container{
   @apply flex items-center justify-center
 }
 .add-allergy-btn{
-  @apply bg-[green] py-2 px-3;
+  @apply bg-[green] py-2 px-3 mt-4;
+}
+.medication-container{
+  @apply flex flex-col gap-4 mb-4
+}
+
+/* view styling starts */
+.info-link{
+  @apply text-[#5252c9]
 }
 /* manage health styling ends */

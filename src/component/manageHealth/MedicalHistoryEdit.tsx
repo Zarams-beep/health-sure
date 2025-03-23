@@ -2,22 +2,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setMedicalHistory } from "@/store/slices/medicalHistory";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MedicalHistory } from "@/types/medicalHistory";
 import { medicalHistorySchema } from "@/features/medicalHistorySchema";
 import { Button, Box, CircularProgress } from "@mui/material";
 
 interface Props {
-    onNext: (isValid?: boolean) => void; 
-    onBack: () => void;
-  }
+  onNext: (isValid?: boolean) => void;
+  onBack: () => void;
+}
 
 const defaultValues: MedicalHistory = {
-  pastDiagnoses: [],
-  surgeries: [],
-  medications: [],
-  familyHistory: [],
+  pastDiagnoses: [""],
+  surgeries: [""],
+  medications: [{ name: "", dosage: "", frequency: "" }],
+  familyHistory: [""],
 };
 
 export default function MedicalHistoryEdit({ onNext, onBack }: Props) {
@@ -28,6 +28,7 @@ export default function MedicalHistoryEdit({ onNext, onBack }: Props) {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isValid },
     watch,
   } = useForm<MedicalHistory>({
@@ -35,6 +36,11 @@ export default function MedicalHistoryEdit({ onNext, onBack }: Props) {
     mode: "onChange",
     defaultValues,
   });
+
+  const pastDiagnosesArray = useFieldArray({ control, name: "pastDiagnoses"  as unknown as never,});
+  const surgeriesArray = useFieldArray({ control, name: "surgeries"  as unknown as never, });
+  const medicationsArray = useFieldArray({ control, name: "medications" });
+  const familyHistoryArray = useFieldArray({ control, name: "familyHistory" as unknown as never});
 
   const formValues = watch();
 
@@ -52,38 +58,73 @@ export default function MedicalHistoryEdit({ onNext, onBack }: Props) {
   };
 
   return (
-    <div className="medical-history-edit-container">
+    <div className="edit-basic-info">
       <h2>Edit Medical History</h2>
 
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <div>
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="form-health-container-main">
+        <div className="form-health-container-2">
+        {/* Past Diagnoses */}
+        <div className="form-health-sub">
           <label>Past Diagnoses</label>
-          <input type="text" {...register("pastDiagnoses.0")} placeholder="Diagnosis 1" />
-          <input type="text" {...register("pastDiagnoses.1")} placeholder="Diagnosis 2" />
-          {errors.pastDiagnoses && <p>{errors.pastDiagnoses.message}</p>}
+          <div className="allergies-container">
+          {pastDiagnosesArray.fields.map((item, index) => (
+            <div key={item.id} className="allergy-input">
+              <input type="text" {...register(`pastDiagnoses.${index}`)} placeholder={`Diagnosis ${index + 1}`} />
+              <button onClick={() => pastDiagnosesArray.remove(index)} disabled={pastDiagnosesArray.fields.length === 1}>Remove</button>
+            </div>
+          ))}</div>
+          <div className="add-allergy-btn-container">
+          <button onClick={() => pastDiagnosesArray.append("")} className="add-allergy-btn">Add</button></div>
+          {errors.pastDiagnoses && <p className="error">{errors.pastDiagnoses.message}</p>}
         </div>
 
-        <div>
+        {/* Surgeries */}
+        <div className="form-health-sub">
           <label>Surgeries</label>
-          <input type="text" {...register("surgeries.0")} placeholder="Surgery 1" />
-          <input type="text" {...register("surgeries.1")} placeholder="Surgery 2" />
-          {errors.surgeries && <p>{errors.surgeries.message}</p>}
+          <div className="allergies-container">
+          {surgeriesArray.fields.map((item, index) => (
+            <div key={item.id} className="allergy-input">
+              <input type="text" {...register(`surgeries.${index}`)} placeholder={`Surgery ${index + 1}`} />
+              <button onClick={() => surgeriesArray.remove(index)} disabled={surgeriesArray.fields.length === 1}>Remove</button>
+            </div>
+          ))}</div>
+          <div className="add-allergy-btn-container">
+          <button onClick={() => surgeriesArray.append("")} className="add-allergy-btn">Add</button></div>
+          {errors.surgeries && <p className="error">{errors.surgeries.message}</p>}
         </div>
 
-        <div>
+        {/* Medications */}
+        <div className="form-health-sub">
           <label>Medications</label>
-          <input type="text" {...register("medications.0.name")} placeholder="Medication Name" />
-          <input type="text" {...register("medications.0.dosage")} placeholder="Dosage" />
-          <input type="text" {...register("medications.0.frequency")} placeholder="Frequency" />
-          {errors.medications && <p>{errors.medications.message}</p>}
+          <div className="main-medication-container">
+          {medicationsArray.fields.map((item, index) => (
+            <div key={item.id} className="medication-container">
+              <input type="text" {...register(`medications.${index}.name`)} placeholder="Medication Name" />
+              <input type="text" {...register(`medications.${index}.dosage`)} placeholder="Dosage" />
+              <input type="text" {...register(`medications.${index}.frequency`)} placeholder="Frequency" />
+              <div className="add-allergy-btn-container">
+              <button className="btn-med" onClick={() => medicationsArray.remove(index)} disabled={medicationsArray.fields.length === 1}>Remove</button></div>
+            </div>
+          ))}</div>
+          <div className="add-allergy-btn-container">
+          <button className="add-allergy-btn" onClick={() => medicationsArray.append({ name: "", dosage: "", frequency: "" })}>Add</button></div>
+          {errors.medications && <p className="error">{errors.medications.message}</p>}
         </div>
 
-        <div>
+        {/* Family History */}
+        <div className="form-health-sub">
           <label>Family History</label>
-          <input type="text" {...register("familyHistory.0")} placeholder="Condition 1" />
-          <input type="text" {...register("familyHistory.1")} placeholder="Condition 2" />
-          {errors.familyHistory && <p>{errors.familyHistory.message}</p>}
-        </div>
+          <div className="allergies-container">
+          {familyHistoryArray.fields.map((item, index) => (
+            <div key={item.id} className="allergy-input">
+              <input type="text" {...register(`familyHistory.${index}`)} placeholder={`Condition ${index + 1}`} />
+              <button onClick={() => familyHistoryArray.remove(index)} disabled={familyHistoryArray.fields.length === 1}>Remove</button>
+            </div>
+          ))}</div>
+           <div className="add-allergy-btn-container">
+          <button className="add-allergy-btn" onClick={() => familyHistoryArray.append("")}>Add</button></div>
+          {errors.familyHistory && <p className="error">{errors.familyHistory.message}</p>}
+        </div></div>
 
         {/* Navigation Buttons */}
         <Box mt={2} display="flex" justifyContent="space-between">

@@ -15,7 +15,7 @@ interface Props {
 const defaultValues: HealthStatus = {
   healthCondition: "",
   vitalSigns: {
-    bloodPressure: "",
+    bloodPressure: 0,
     heartRate: 0, 
     temperature: 0,
     sugar: 0,
@@ -108,7 +108,7 @@ export default function HealthStatusEdit({ onNext, onBack }: Props) {
             <div className="add-allergy-btn-container">
              <button type="button" onClick={() => append("")} className="add-allergy-btn">Add Allergy</button>
              </div>
-             {errors.allergies && <p className="red-error">{errors.allergies.message}</p>}
+             {errors.allergies && <p className="error">{errors.allergies.message}</p>}
             </div>
           </div>
      </div>

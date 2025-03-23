@@ -7,17 +7,18 @@ import { HealthStatus } from "@/types/healthSure";
 
 export default function HealthStatusView() {
   const storedHealthStatus = useSelector((state: RootState) => state.healthStatus);
-
+ const fullName =
+    useSelector((state: RootState) => state.auth.fullName) || "Chizaram";
   const [healthStatus, setHealthStatus] = useState<HealthStatus>({
     healthCondition: "",
     vitalSigns: {
-      bloodPressure: "",
-      heartRate: null,
-      temperature: null,
-      sugar: null,
-      oxygen: null,
-      cholesterol: null,
-      BMI: null,
+      bloodPressure: 0,
+      heartRate: 0,
+      temperature: 0,
+      sugar: 0,
+      oxygen: 0,
+      cholesterol: 0,
+      BMI: 0,
     },
     allergies: [],
   });
@@ -27,7 +28,7 @@ export default function HealthStatusView() {
         setHealthStatus({
         healthCondition: storedHealthStatus.healthCondition || "",
         vitalSigns: {
-          bloodPressure: storedHealthStatus.vitalSigns.bloodPressure || "",
+          bloodPressure: storedHealthStatus.vitalSigns.bloodPressure || 0,
           heartRate: storedHealthStatus.vitalSigns.heartRate ?? null,
           temperature: storedHealthStatus.vitalSigns.temperature ?? null,
           sugar: storedHealthStatus.vitalSigns.sugar ?? null,
@@ -71,7 +72,10 @@ export default function HealthStatusView() {
       ) : (
         <div className="missing-info">
           <p>You haven&apos;t added your health information yet.</p>
-          <Link href="/dashboard/manage-health/edit-health" className="info-link">
+          <Link
+            href={`/dashboard/${fullName}/manage-health/edit-health`}
+            className="info-link"
+          >
             Click here to fill in your details
           </Link>
         </div>
