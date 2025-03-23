@@ -1,13 +1,13 @@
 export interface HealthStatus {
-  healthCondition: string | null;
+  healthCondition: string;
   vitalSigns: {
-    bloodPressure: string | null;
-    heartRate: number | null;
-    temperature: number | null;
-    sugar: number | null;
-    oxygen: number | null;
-    cholesterol: number | null;
-    BMI: number | null;
+    bloodPressure: string;
+    heartRate: number;
+    temperature: number;
+    sugar: number;
+    oxygen: number;
+    cholesterol: number;
+    BMI: number;
   };
   allergies: string[];
 }

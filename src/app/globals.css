@@ -1179,29 +1179,28 @@
 .edit-basic-info h2{
   @apply text-[30px] text-center font-bold
 }
-.form-health-container-main{
+.form-health-container-main, .form-health-container-2{
   @apply flex flex-col gap-4
 }
-.form-health-container{
+.form-health-container-2 h3{
+  @apply text-[20px] font-[600] text-center mt-4
+}
+.form-health-container, .form-health-vital{
   @apply grid grid-cols-2 gap-x-7 gap-y-3
 }
 
-.form-health-container .form-health-sub, 
-.form-health-container .form-health-sub2 .form-health-vital .form-health-vital-2{
+.form-health-container .form-health-sub,.form-health-container-2 .form-health-sub, 
+.form-health-container-2 .form-health-vital .form-health-vital-2{
   @apply flex flex-col gap-2 }
 
-.form-health-container .form-health-sub2 h3{
-  @apply font-semibold text-[18px]
-}
-.form-health-container .form-health-sub2 .form-health-vital{
-  @apply grid grid-cols-2 gap-x-2 gap-y-3 w-full
-}
-
-.form-health-container .form-health-sub label, .form-health-container .form-health-sub2 .form-health-vital .form-health-vital-2 label{
+.form-health-container .form-health-sub label, .form-health-container-2 label{
   @apply text-[15px] font-semibold
 }
-.form-health-container .form-health-sub input, .form-health-container .form-health-sub select, .form-health-container .form-health-sub2 .form-health-vital .form-health-vital-2 input{
+.form-health-container .form-health-sub input, .form-health-container .form-health-sub select, .form-health-container-2 input{
   @apply p-2 placeholder:text-[16px] rounded-[5px] outline-brown bg-transparent border border-lightGrey text-[16px]
+}
+.form-health-container .form-health-sub select, .form-health-container .form-health-sub .date-input{
+  @apply cursor-pointer
 }
 .red-error{
   @apply text-[red] text-[14px]
@@ -1214,5 +1213,26 @@
 }
 .form-health-container .back-active{
   @apply bg-milky text-brown
+}
+.allergies-main-container{
+  @apply flex flex-col gap-3
+}
+.allergies-container{
+  @apply grid grid-cols-2 gap-4;
+}
+.allergy-input{
+  @apply flex items-center justify-between gap-x-3
+}
+.allergy-input input{
+  @apply w-full
+}
+.allergy-input button, .add-allergy-btn{
+  @apply bg-[#b82424] text-white-offWhite rounded-[5px] px-2 text-[13px] h-full font-bold
+}
+.add-allergy-btn-container{
+  @apply flex items-center justify-center
+}
+.add-allergy-btn{
+  @apply bg-[green] py-2 px-3;
 }
 /* manage health styling ends */

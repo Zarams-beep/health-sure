@@ -7,8 +7,8 @@ import TreatmentInfoView from "@/component/manageHealth/TreatmentInfo";
 export default function ViewHealthPage(){
    return(
     <>
-    <div className="">
-         <div className="">
+    <div className="main-wallet-container">
+         <div className="wallet-container">
            <BalanceMainSection />
            <div className="view-main-container">
             <BasicInfoSectionView/>

@@ -7,25 +7,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { HealthStatus } from "@/types/healthSure";
 import { healthStatusSchema } from "@/features/healthStatus";
 import { Button, Box, CircularProgress } from "@mui/material";
-
+import { useFieldArray } from "react-hook-form";
 interface Props {
   onNext: (isValid?: boolean) => void; 
   onBack: () => void;
 }
-// ✅ Define default values outside to prevent re-renders
 const defaultValues: HealthStatus = {
   healthCondition: "",
   vitalSigns: {
     bloodPressure: "",
-    heartRate: null,
-    temperature: null,
-    sugar: null,
-    oxygen: null,
-    cholesterol: null,
-    BMI: null,
+    heartRate: 0, 
+    temperature: 0,
+    sugar: 0,
+    oxygen: 0,
+    cholesterol: 0,
+    BMI: 0,
   },
   allergies: [],
 };
+
 
 export default function HealthStatusEdit({ onNext, onBack }: Props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,14 +36,22 @@ export default function HealthStatusEdit({ onNext, onBack }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid},
+    formState: { errors, isValid },
     watch,
+    control,
   } = useForm<HealthStatus>({
     resolver: zodResolver(healthStatusSchema),
     mode: "onChange",
     defaultValues,
   });
-
+  
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "allergies" as unknown as never, // Trick TS into recognizing it
+  });
+  
+  
+  
   // Watching the form values
   const formValues = watch();
 
@@ -76,7 +84,7 @@ export default function HealthStatusEdit({ onNext, onBack }: Props) {
       <h2>Edit Health Status</h2>
 
       <form onSubmit={handleSubmit(handleFormSubmit)}  className="form-health-container-main">
-     <div className="form-health-container">
+     <div className="form-health-container-2">
      <div className="form-health-sub">
           <label>Health Condition:</label>
           <input {...register("healthCondition")} />
@@ -85,26 +93,44 @@ export default function HealthStatusEdit({ onNext, onBack }: Props) {
 
        
         <div className="form-health-sub">
-          <label>Allergies:</label>
-          <input {...register("allergies")} />
-          {errors.allergies && <p className="red-error">{errors.allergies.message}</p>}
-        </div>
+            <label>Allergies:</label>
+            <div className="allergies-main-container">
+            <div className="allergies-container">
+              {fields.map((field, index) => (
+                <div key={field.id} className="allergy-input">
+                  <input {...register(`allergies.${index}`)} />
+                  <button type="button" onClick={() => remove(index)}>Remove</button>
+                </div>
+              ))}
+             
+            </div>
+            
+            <div className="add-allergy-btn-container">
+             <button type="button" onClick={() => append("")} className="add-allergy-btn">Add Allergy</button>
+             </div>
+             {errors.allergies && <p className="red-error">{errors.allergies.message}</p>}
+            </div>
+          </div>
+     </div>
 
-        <div className="form-health-sub2">
+     {/* form container 2 */}
+     <div className="form-health-container-2">
        <h3>Vital Signs</h3>
         <div className="form-health-vital">
         {vitalSignFields.map(({ label, name }) => (
-          <div key={name} className="form-health-vital-2">
-            <label>{label}:</label>
-            <input type="number" {...register(`vitalSigns.${name}`)} />
-            {errors.vitalSigns?.[name] && <p className="red-error">{errors.vitalSigns[name]?.message}</p>}
-          </div>
-        ))}
+  <div key={name} className="form-health-vital-2">
+    <label>{label}:</label>
+    <input 
+      type="number" 
+      {...register(`vitalSigns.${name}`, { valueAsNumber: true })} // ✅ Ensure values are numbers
+    />
+    {errors.vitalSigns?.[name] && <p className="red-error">{errors.vitalSigns[name]?.message}</p>}
+  </div>
+))}
+
         </div>
 
        </div>
-
-     </div>
           {/* Navigation Buttons */}
                 <Box mt={2} display="flex" justifyContent="space-between">
                   <Button onClick={onBack} variant="outlined">Back</Button>

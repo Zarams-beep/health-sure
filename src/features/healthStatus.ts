@@ -1,15 +1,14 @@
 import { z } from "zod";
 export const healthStatusSchema = z.object({
-    healthCondition: z.string().nullable(),
-    vitalSigns: z.object({
-      bloodPressure: z.string().nullable(),
-      heartRate: z.number().nullable(),
-      temperature: z.number().nullable(),
-      sugar: z.number().nullable(),
-      oxygen: z.number().nullable(),
-      cholesterol: z.number().nullable(),
-      BMI: z.number().nullable(),
-    }),
-    allergies: z.array(z.string()), 
-  });
-  
+  healthCondition: z.string().min(1, "Health condition is required"),
+  vitalSigns: z.object({
+    bloodPressure: z.string().min(1, "Blood Pressure is required"),
+    heartRate: z.number(),
+    temperature: z.number(),
+    sugar: z.number(),
+    oxygen: z.number(),
+    cholesterol: z.number(),
+    BMI: z.number(),
+  }),
+  allergies: z.array(z.string()),
+});

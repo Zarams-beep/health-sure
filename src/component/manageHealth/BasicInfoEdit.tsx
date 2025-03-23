@@ -12,6 +12,22 @@ interface Props {
   onNext: () => void;
 }
 
+const defaultValues: BasicInfo = {
+  fullName: "",
+  DOB: "",
+  Age: "",
+  Gender: "Male", 
+  phoneNumber: "",
+  email: "",
+  HouseAddress: "",
+  EmergencyNumber: "",
+  NextOfKinName: "",
+  NextOfKinGender: "Male", 
+  NextOfKinPhoneNumber: "",
+  NextOfKinEmailAddress: "",
+};
+
+
 export default function BasicInfoEditSection({ onNext }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [isModified, setIsModified] = useState(false);
@@ -25,20 +41,6 @@ export default function BasicInfoEditSection({ onNext }: Props) {
   } = useForm<BasicInfo>({
     resolver: zodResolver(basicInfoSchema),
     mode: "onChange",
-    defaultValues: {
-      fullName: "",
-      DOB: "",
-      Age: "",
-      Gender: null,
-      phoneNumber: "",
-      email: "",
-      HouseAddress: "",
-      EmergencyNumber: "",
-      NextOfKinName: "",
-      NextOfKinGender: null,
-      NextOfKinPhoneNumber: "",
-      NextOfKinEmailAddress: "",
-    },
   });
 
   // Watch form values
@@ -85,7 +87,7 @@ export default function BasicInfoEditSection({ onNext }: Props) {
         {/* Date of Birth */}
         <div className="form-health-sub">
           <label>Date of Birth</label>
-          <input type="date" {...register("DOB")} />
+          <input type="date" {...register("DOB")} className="date-input"/>
           {errors.DOB && <p className="red-error" >{errors.DOB.message}</p>}
         </div>
 
