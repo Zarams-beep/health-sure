@@ -658,6 +658,9 @@
 .login-form {
   @apply flex flex-col gap-4;
 }
+.login-form-div{
+  @apply flex flex-col gap-4;
+}
 .login-form .input-group label {
   @apply text-[17px];
 }
@@ -675,7 +678,7 @@
   @apply w-full rounded-[20px] p-2 font-bold;
 }
 .active-button {
-  @apply bg-brown text-white-offWhite;
+  @apply bg-brown text-white-offWhite cursor-pointer;
 }
 .disabled-button {
   @apply border border-brown text-brown;

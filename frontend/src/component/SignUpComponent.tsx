@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CiMail, CiLock } from "react-icons/ci";
 import { FaEye, FaEyeSlash, FaRegCircle } from "react-icons/fa";
-import { RiMentalHealthFill, RiInformationLine} from "react-icons/ri";
+import { RiMentalHealthFill, RiInformationLine } from "react-icons/ri";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSubmitFormData } from "@/types/auth";
@@ -19,57 +19,68 @@ const SignUp: React.FC = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    watch
-  } = useForm<SignUpSubmitFormData>({ resolver: zodResolver(signUpSchema), mode: "onSubmit" });
+    watch,
+    setValue,
+    trigger
+  } = useForm<SignUpSubmitFormData>({
+    resolver: zodResolver(signUpSchema),
+    mode: "onChange",
+  });
   const [isLoading, setIsLoading] = useState(false);
- 
- 
+
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+
+  const handleImageUpload = (file: File | null) => {
+    setUploadedImage(file);
+    setValue("image", file); // Update form value
+    trigger("image"); // Trigger validation
+  };
+
   const submitData = async (data: SignUpSubmitFormData) => {
     setIsLoading(true);
-  
+
     try {
+      const formData = new FormData();
+      formData.append("fullName", data.fullName);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      if (uploadedImage) {
+        formData.append("image", uploadedImage);
+      }
+
       const response = await fetch("http://localhost:5000/auth/sign-up", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, image: uploadedImage }),
+        body: formData,
       });
-  
+
       const result = await response.json();
-  
+
       if (!response.ok) {
         throw new Error(result.message || "Signup failed");
       }
-  
-      dispatch(setUserData({ fullName: data.fullName, image: uploadedImage || null }));
-      alert("Signup successful!");
-      router.push("/auth/log-in"); // Redirect to login page
+
+      dispatch(
+        setUserData({ fullName: data.fullName, image: result.imageUrl || null })
+      );
+      setTimeout(() => {
+        alert("Signup successful!");
+        router.push("/auth/log-in");
+      }, 100);
     } catch (error) {
-      const errMsg = error instanceof Error ? error.message : "An unknown error occurred";
+      const errMsg =
+        error instanceof Error ? error.message : "An unknown error occurred";
       console.error("Signup error:", errMsg);
       alert(errMsg);
     } finally {
       setIsLoading(false);
     }
   };
-  
-  
-  const handleImageUpload = (file: File | null) => {
-    if (file) {
-      const imageUrl = URL.createObjectURL(file); // Convert File to URL
-      setUploadedImage(imageUrl);
-    } else {
-      setUploadedImage(null);
-    }
-  };
-  
-    // Simulate the delay for 2 seconds
+
+  // Simulate the delay for 2 seconds
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -83,38 +94,31 @@ const SignUp: React.FC = () => {
   const email = watch("email");
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
-  const allFieldsFilled = fullName && email && password && confirmPassword;
-
+  const allFieldsFilled =
+    fullName && email && password && confirmPassword;
 
   return (
     <>
-      <div
-        className="login-container signup-container">
+      <div className="login-container signup-container">
         {/* -------- left half of signup page -------- */}
-         <div className="login-left">
-                <Image
-                  src={"/hero-img-2.jpg"}
-                  alt="login image"
-                  width={470}
-                  height={470}
-                  quality={100}
-                  className="login-image"
-                />
-              </div>
+        <div className="login-left">
+          <Image
+            src={"/hero-img-2.jpg"}
+            alt="login image"
+            width={470}
+            height={470}
+            quality={100}
+            className="login-image"
+          />
+        </div>
         {/* -------- form input of signup page -------- */}
         <div className="login-form-container">
           {/* -------- form heading -------- */}
           <div className="form-header">
-            <h2
-              className="form-title"
-            >
-              Create an account
-            </h2>
+            <h2 className="form-title">Create an account</h2>
             <p className="form-subtitle">
               Already have an account?&nbsp;&nbsp;
-              <Link
-                href={"/auth/log-in"}
-                className="">
+              <Link href={"/auth/log-in"} className="">
                 Login
               </Link>
             </p>
@@ -126,33 +130,30 @@ const SignUp: React.FC = () => {
             onSubmit={handleSubmit(submitData)}
           >
             {/* -------- form details and save details button -------- */}
-            <div className="flex flex-col gap-3">
+            <div className="login-form-div">
               {/* -------- form details only -------- */}
               <div className="sign-up-section">
-                  {/* Image Upload */}
-          <div className="input-group img-group">
-          <ImageUploader onImageUpload={(file) => handleImageUpload(file)} />
-          </div>
+                {/* Image Upload */}
+                <div className="input-group img-group">
+                  <ImageUploader
+                    onImageUpload={(file) => handleImageUpload(file)}
+                  />
+                </div>
                 {/* -------- full name -------- */}
                 <div className="input-group">
-                  <label
-                    htmlFor="full-name"
-                    className="input-label"
-                  >
+                  <label htmlFor="full-name" className="input-label">
                     Full Name
                   </label>
                   <div className="input-wrapper">
-                  <span className="input-icon">
+                    <span className="input-icon">
                       <RiMentalHealthFill
-                      color={errors.email ? "#f65252" : "#59676e"}
-                      size={18}
+                        color={errors.email ? "#f65252" : "#59676e"}
+                        size={18}
                       />
                     </span>
                     <input
                       className={`input-field ${
-                        errors.fullName
-                          ? "input-error"
-                          : "input-normal"
+                        errors.fullName ? "input-error" : "input-normal"
                       }`}
                       type="text"
                       id="full-name"
@@ -160,36 +161,29 @@ const SignUp: React.FC = () => {
                       required
                       {...register("fullName")}
                     />
-                 
                   </div>
                   {errors.fullName && (
                     <div className="error-message">
                       <RiInformationLine size={"18px"} />
-                      <p className="error-text">
-                        {errors.fullName.message}
-                      </p>
+                      <p className="error-text">{errors.fullName.message}</p>
                     </div>
                   )}
                 </div>
                 {/* -------- email -------- */}
                 <div className="input-group">
-                  <label
-                    htmlFor="full-email"
-                    className="input-label"
-                  >
+                  <label htmlFor="full-email" className="input-label">
                     Full Email
                   </label>
                   <div className="input-wrapper">
-                  <span className="input-icon">
+                    <span className="input-icon">
                       <CiMail
-                       color={errors.password ? "#f65252" : "#59676e"}
-                       size={18}
+                        color={errors.password ? "#f65252" : "#59676e"}
+                        size={18}
                       />
                     </span>
                     <input
                       className={`input-field ${
-                        errors.email
-                          ? "input-error" : "input-normal"
+                        errors.email ? "input-error" : "input-normal"
                       }`}
                       type="email"
                       id="full-email"
@@ -197,114 +191,114 @@ const SignUp: React.FC = () => {
                       required
                       {...register("email")}
                     />
-                   
                   </div>
                   {errors.email && (
                     <div className="error-message">
                       <RiInformationLine size={"18px"} />
-                      <p className="error-text">
-                        {errors.email.message}
-                      </p>
+                      <p className="error-text">{errors.email.message}</p>
                     </div>
                   )}
                 </div>
                 {/* -------- password -------- */}
                 <div className="input-group">
-                  <label
-                    htmlFor="password"
-                    className="input-label"
-                  >
+                  <label htmlFor="password" className="input-label">
                     Choose Password
                   </label>
                   <div className="input-wrapper">
-                  <span className="input-icon">
+                    <span className="input-icon">
                       <CiLock
-                      color={errors.password ? "#f65252" : "#59676e"}
-                      size={18}
+                        color={errors.password ? "#f65252" : "#59676e"}
+                        size={18}
                       />
                     </span>
                     <div className="input-second">
-                    <input
-                      className={`input-field ${
-                  errors.password ? "input-error" : "input-normal"
-                }`}
-                      type={showPassword ? 'text' : 'password'}
-                      id="password"
-                      placeholder="Enter your password"
-                      required
-                      {...register("password")}
-                    />
-                  <button
-                      type="button"
-                      className="show-password-toggle"
-                      onClick={handleShowPassword}
-                      aria-label={showPassword ? "Hide password" : "Show password"}
-                    >
-                      {!showPassword ? (
-                        <FaEyeSlash
-                        color={errors.password ? "#f65252" : "#59676e"}
-                        size={18}
-                        />
-                      ) : (
-                        <FaEye
-                        color={errors.password ? "#f65252" : "#59676e"}
-                        size={18}
-                        />
-                      )}
-                    </button></div>
+                      <input
+                        className={`input-field ${
+                          errors.password ? "input-error" : "input-normal"
+                        }`}
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                        {...register("password")}
+                      />
+                      <button
+                        type="button"
+                        className="show-password-toggle"
+                        onClick={handleShowPassword}
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {!showPassword ? (
+                          <FaEyeSlash
+                            color={errors.password ? "#f65252" : "#59676e"}
+                            size={18}
+                          />
+                        ) : (
+                          <FaEye
+                            color={errors.password ? "#f65252" : "#59676e"}
+                            size={18}
+                          />
+                        )}
+                      </button>
+                    </div>
                   </div>
                   {errors.password && (
                     <div className="error-message">
                       <RiInformationLine size={"18px"} />
-                      <p className="error-text">
-                        {errors.password.message}
-                      </p>
+                      <p className="error-text">{errors.password.message}</p>
                     </div>
                   )}
                 </div>
                 {/* -------- confirm password -------- */}
                 <div className="input-group">
-                  <label
-                    htmlFor="confirm-password"
-                    className="input-label"
-                  >
+                  <label htmlFor="confirm-password" className="input-label">
                     Confirm Password
                   </label>
                   <div className="input-wrapper">
-                  <span className="input-icon">
+                    <span className="input-icon">
                       <CiLock
                         color={errors.password ? "#f65252" : "#59676e"}
                         size={18}
                       />
                     </span>
-                    <div className="input-second">   
-                    <input
-                      className={`input-field ${
-                        errors.confirmPassword
-                          ? "input-error" : "input-normal"
-                      }`}
-                      type={showConfirmPassword ? 'text' : 'password'}
-                      id="confirm-password"
-                      placeholder="Enter your password"
-                      required
-                      {...register("confirmPassword")}
-                    />
-                   <button type="button"
-                className="show-password-toggle" onClick={handleShowConfirmPassword}
-                aria-label={showConfirmPassword ? "Hide password" : "Show password"}>
-                    {!showConfirmPassword ? (
-                        <FaEyeSlash
-                        color={errors.password ? "#f65252" : "#59676e"}
-                    size={18}
-                        />
-                      ) : (
-                        <FaEye
-                        color={errors.password ? "#f65252" : "#59676e"}
-                        size={18}
-                        />
-                      )}
-                    </button></div>
-
+                    <div className="input-second">
+                      <input
+                        className={`input-field ${
+                          errors.confirmPassword
+                            ? "input-error"
+                            : "input-normal"
+                        }`}
+                        type={showConfirmPassword ? "text" : "password"}
+                        id="confirm-password"
+                        placeholder="Enter your password"
+                        required
+                        {...register("confirmPassword")}
+                      />
+                      <button
+                        type="button"
+                        className="show-password-toggle"
+                        onClick={handleShowConfirmPassword}
+                        aria-label={
+                          showConfirmPassword
+                            ? "Hide password"
+                            : "Show password"
+                        }
+                      >
+                        {!showConfirmPassword ? (
+                          <FaEyeSlash
+                            color={errors.password ? "#f65252" : "#59676e"}
+                            size={18}
+                          />
+                        ) : (
+                          <FaEye
+                            color={errors.password ? "#f65252" : "#59676e"}
+                            size={18}
+                          />
+                        )}
+                      </button>
+                    </div>
                   </div>
                   {errors.confirmPassword && (
                     <div className="error-message">
@@ -324,24 +318,26 @@ const SignUp: React.FC = () => {
                   id="save-details"
                   className="checkbox"
                 />
-                <label htmlFor="save-details" className="checkbox-label">Save details</label>
+                <label htmlFor="save-details" className="checkbox-label">
+                  Save details
+                </label>
               </div>
             </div>
             <button
-    className={`submit-button ${
-        allFieldsFilled ? "active-button" : "disabled-button"
-      }`}
-      type="submit"
-      disabled={!isValid || isLoading}
->
- {isLoading ? (
-               <div className="loading-spinner">
-                 <FaRegCircle className="spinner-icon" />
-               </div>
-  ) : (
-    "Create account"
-  )}
-</button>
+              className={`submit-button ${
+                isValid ? "active-button" : "disabled-button"
+              }`}
+              type="submit"
+              disabled={!isValid || isLoading}
+            >
+              {isLoading ? (
+                <div className="loading-spinner">
+                  <FaRegCircle className="spinner-icon" />
+                </div>
+              ) : (
+                "Create account"
+              )}
+            </button>
           </form>
         </div>
       </div>

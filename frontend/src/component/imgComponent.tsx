@@ -5,24 +5,25 @@ import Image from "next/image";
 import { FaPen, FaTrash } from "react-icons/fa";
 
 interface ImageUploaderProps {
-  onImageUpload: (file: File | null) => void; // Accepts File instead of Base64
+  onImageUpload: (file: File | null) => void; // Now sends a File object
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [file, setFile] = useState<File | null>(null); // Store actual file
+  const [selectedImage, setSelectedImage] = useState<string | null>(null); // For preview
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null); // Store actual file
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0];
-        setFile(file); // Store the File object
 
-        // Create a preview URL
+        // Generate preview URL
         const previewURL = URL.createObjectURL(file);
         setSelectedImage(previewURL);
+        setUploadedFile(file);
 
-        onImageUpload(file); // Pass File object to parent component
+        // Pass the File object to the parent
+        onImageUpload(file);
       }
     },
     [onImageUpload]
@@ -36,15 +37,21 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload }) => {
 
   const handleDelete = () => {
     setSelectedImage(null);
-    setFile(null);
-    onImageUpload(null);
+    setUploadedFile(null);
+    onImageUpload(null); // Notify parent that image is deleted
   };
 
   return (
     <div className="img-component-sign">
       {selectedImage ? (
         <div className="img-component-1">
-          <Image src={selectedImage} alt="Uploaded" layout="fill" objectFit="cover" className="img-set" />
+          <Image
+            src={selectedImage}
+            alt="Uploaded"
+            layout="fill"
+            objectFit="cover"
+            className="img-set"
+          />
           <div className="delete-edit-img">
             <div {...getRootProps()} className="edit-container">
               <button type="button" className="edit">

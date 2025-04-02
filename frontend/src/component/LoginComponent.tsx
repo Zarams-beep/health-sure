@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { setUserData } from "@/store/slices/authSlices";
 import Image from "next/image";
 import Link from "next/link";
 import { CiMail, CiLock } from "react-icons/ci";
@@ -17,37 +17,55 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+    const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
     watch,
+    trigger,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    mode: "onSubmit",
+    mode: "onChange",
   });
 
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
-  const fullName = useSelector((state: RootState) => state.auth.fullName);
   const email = watch("email");
   const password = watch("password");
   const allFieldsFilled = email && password;
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
+    
+    try {
+      const response = await fetch("http://localhost:5000/auth/log-in", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
   
-    if (fullName) {
-      router.push(`/dashboard/${fullName}/landing-page`);
-    } else {
-      alert("Full name is missing!");
-    }
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Login failed");
+      }
   
-    console.log("Form data:", data);
-    setTimeout(() => {
+      const result = await response.json();
+  
+      dispatch(setUserData({
+        fullName: result.user.fullName,
+        image: result.user.image
+      }));
+  
+      router.push(`/dashboard/${result.user.fullName}/landing-page`);
+      
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Login failed");
+      console.error("Login error:", error);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
   
 

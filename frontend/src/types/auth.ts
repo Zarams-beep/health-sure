@@ -14,13 +14,13 @@ interface SignupState {
   }
   export type SignUpFormData = {
     fullName: string;
-    image:string;
+    image ?: File | null;
     email: string;
     password: string;
   };
   export type SignUpSubmitFormData = {
     fullName: string;
-    image:string;
+    image ?: File | null;
     email: string;
     password: string;
     confirmPassword?: string;

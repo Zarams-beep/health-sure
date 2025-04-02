@@ -4,18 +4,15 @@ import { z, ZodType } from "zod";
 export const signUpSchema: ZodType<SignUpSubmitFormData> = z
   .object({
     fullName: z.string().min(1, "Full name is required"),
-    email: z.string().email("Invalid email address, try again"),
+    image: z.any()
+    .refine(file => !file || file instanceof File, "Must be a valid file")
+    .optional(),
+    email: z.string().email("Invalid email address"),
     password: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z.string().min(6, "Confirm password is required"),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
     saveDetails: z.boolean().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Re-enter the password correctly",
+    message: "Passwords do not match",
     path: ["confirmPassword"],
-  })
-  .transform(({ confirmPassword, ...rest }) => {
-    void confirmPassword;
-    return rest;
   });
-  
-
