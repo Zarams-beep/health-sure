@@ -28,7 +28,6 @@ interface SignupState {
   };
 
   export type LoginFormData= {
-    // fullName: string;
     email: string;
     password: string;
     rememberMe?: boolean;
