@@ -33,6 +33,7 @@
     "react-responsive": "^9.0.2",
     "react-to-print": "^3.0.5",
     "recharts": "^2.15.1",
+    "redux-persist": "^6.0.0",
     "swiper": "^11.2.3",
     "three": "^0.173.0",
     "zod": "^3.24.2"

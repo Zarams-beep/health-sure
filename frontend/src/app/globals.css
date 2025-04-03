@@ -674,6 +674,9 @@
 .login-form .input-wrapper .input-second {
   @apply flex items-center justify-between h-full w-full;
 }
+.error-message{
+  @apply flex items-center gap-1 text-[14px] text-[red]
+}
 .submit-button {
   @apply w-full rounded-[20px] p-2 font-bold;
 }
